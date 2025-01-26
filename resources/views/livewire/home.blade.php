@@ -53,7 +53,15 @@
                 </section>
     
                 {{-- Posts --}}
-                <section class="mt-10 space-y-8"></section>
+                <section class="mt-10 space-y-8">
+                    <livewire:post.item />
+                    <livewire:post.item />
+                    <livewire:post.item />
+                    <livewire:post.item />
+                    <livewire:post.item />
+                    <livewire:post.item />
+                    <livewire:post.item />
+                </section>
             </aside>
             {{-- Suggestions --}}
             <aside class="lg:col-span-4  hidden lg:block p-4">
