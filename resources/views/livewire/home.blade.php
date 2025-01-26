@@ -55,12 +55,6 @@
                 {{-- Posts --}}
                 <section class="mt-10 space-y-8">
                     <livewire:post.item />
-                    <livewire:post.item />
-                    <livewire:post.item />
-                    <livewire:post.item />
-                    <livewire:post.item />
-                    <livewire:post.item />
-                    <livewire:post.item />
                 </section>
             </aside>
             {{-- Suggestions --}}
