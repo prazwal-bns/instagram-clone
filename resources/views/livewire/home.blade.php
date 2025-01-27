@@ -37,7 +37,7 @@
 
     {{-- <main class="grid lg:grid-cols-12 gap-8 md:mt-10"> --}}
         <main class="grid lg:grid-cols-12 gap-8 md:mt-10 items-start">
-
+            
             <aside class="lg:col-span-8  overflow-hidden">
     
                 {{-- Stories --}}
@@ -51,12 +51,15 @@
                         @endfor
                     </ul>
                 </section>
+                
     
                 {{-- Posts --}}
                 <section class="mt-10 space-y-8">
                     <livewire:post.item />
                 </section>
             </aside>
+        
+
             {{-- Suggestions --}}
             <aside class="lg:col-span-4  hidden lg:block p-4">
                 <div class="flex items-center gap-2">

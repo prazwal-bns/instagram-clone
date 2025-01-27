@@ -12,13 +12,50 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
         <link rel="icon" type="image/svg" href="{{ asset('assets/favicon.svg') }}">
-        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <!-- Swiper Styles -->
 
         <style>
             [x-cloak]{
                 display: none !important;
             }
+            .swiper-button-prev {
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2.8' stroke='currentColor' class='w-4 h-4'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M15.75 19.5L8.25 12l7.5-7.5'/%3E%3C/svg%3E") !important;
+                    background-repeat: no-repeat;
+                    background-size: 16px;
+                    background-position: center;
+                    background-color: rgba(255, 255, 255, 0.75);
+                    border: 1px solid #d1d5db;
+                    border-radius: 9999px;
+                    padding: 6px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 32px;
+                    width: 32px;
+                }
+        
+                .swiper-button-next {
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2.8' stroke='currentColor' class='w-4 h-4'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5'/%3E%3C/svg%3E") !important;
+                    background-repeat: no-repeat;
+                    background-size: 16px;
+                    background-position: center;
+                    background-color: rgba(255, 255, 255, 0.75);
+                    border: 1px solid #d1d5db;
+                    border-radius: 9999px;
+                    padding: 6px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 32px;
+                    width: 32px;
+                }
+        
+                .swiper-button-next::after,
+                .swiper-button-prev::after {
+                    display: none;
+                }
         </style>
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -44,7 +81,7 @@
                     {{ $slot }}
                 </div>
             </div>
-            <div class="drawer-side">
+            <div class="drawer-side fixed inset-0 z-50"> <!-- Fixed positioning with z-index -->
                 <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
                 @include('layouts.sidebar')
             </div>
