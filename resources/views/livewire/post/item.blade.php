@@ -1,15 +1,12 @@
-<div class="max-w-xl mx-auto">
-
-
+<div class="max-w-xl mx-auto"> 
     {{-- header --}}
-    
     <header class="flex items-center gap-3">
         <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="h-10 w-10" />
 
         <div class="grid grid-cols-7 w-full gap-2">
 
             <div class="col-span-5">
-                <h5 class="font-semibold truncate text-sm"> {{ fake()->name }} </h5>
+                <h5 class="font-semibold truncate text-sm"> {{ $post->user->name }} </h5>
             </div>
 
             <div class="col-span-2 flex text-right justify-end">
@@ -46,34 +43,56 @@
                 },
             
             });" class="swiper h-[500px] border bg-white">
-                <div x-cloak class="swiper-wrapper">
+                <ul x-cloak class="swiper-wrapper">
                     <!-- Slides -->
-                    <div class="swiper-slide"> <x-video /> </div>
-                    <div class="swiper-slide"> <img
-                            src="https://images.pexels.com/photos/17342296/pexels-photo-17342296/free-photo-of-balloons-flying-over-the-canyons.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                            alt="" class="h-[500px] w-full block object-scale-down">
-                    </div>
-                    <div class="swiper-slide"> <img
+                    @foreach ($post->media as $file)
+                    <li class="swiper-slide">
+                        @switch($file->mime)
+                            @case('video')
+                                <x-video source="{{ $file->url }}"/>
+                                @break
+                            @case('image')
+                                <img
+                                src="{{ $file->url }}"
+                                alt="" class="h-[500px] w-full block object-scale-down">
+                                @break
+                            @default
+                                
+                        @endswitch
+                    </li>
+                    @endforeach
+                    
+
+                    {{-- <li class="swiper-slide"> <img
+                        src="https://images.pexels.com/photos/17342296/pexels-photo-17342296/free-photo-of-balloons-flying-over-the-canyons.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                        alt="" class="h-[500px] w-full block object-scale-down">
+                    </li> 
+                    <li class="swiper-slide"> <x-video /> </li>
+                    <li class="swiper-slide"> <img 
                             src="https://images.pexels.com/photos/30165563/pexels-photo-30165563/free-photo-of-majestic-mountain-silhouette-at-purple-dusk.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                             alt="" class="h-[500px] w-full block object-scale-down">
-                    </div>
-                    <div class="swiper-slide"> <img
+                    </li>
+                    <li class="swiper-slide"> <img
                             src="https://images.pexels.com/photos/14846793/pexels-photo-14846793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                             alt="" class="h-[500px] w-full block object-scale-down">
-                    </div>
-                </div>
+                    </li> --}}
+                    
+                </ul>
                 <!-- If we need pagination -->
                 <div class="swiper-pagination"></div>
+                
 
-                {{-- prev --}}
-                <div class="swiper-button-prev">
+                @if (count($post->media) > 1)
+                    {{-- prev --}}
+                    <div class="swiper-button-prev">
 
-                </div>
+                    </div>
 
-                {{-- next  --}}
-                <div class="swiper-button-next">
+                    {{-- next  --}}
+                    <div class="swiper-button-next">
 
-                </div>
+                    </div>
+                @endif
 
                 <!-- If we need scrollbar -->
                 {{-- <div class="swiper-scrollbar"></div> --}}
@@ -123,9 +142,7 @@
 
         {{-- name & comment --}}
         <div class=" flex text-sm gap-2 font-medium ">
-            <p> <strong class="font-bold">John Surprise</strong> Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Voluptatem dolore adipisci quibusdam qui aut nostrum omnis blanditiis maiores nesciunt. Omnis
-                perferendis culpa in excepturi nemo ratione ea assumenda aspernatur voluptate!</p>
+            <p> <strong class="font-bold">{{ $post->user->name }}</strong> {{ $post->description }}</p>
         </div>
 
         {{-- View Post Modal --}}

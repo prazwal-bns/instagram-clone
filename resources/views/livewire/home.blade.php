@@ -55,7 +55,13 @@
     
                 {{-- Posts --}}
                 <section class="mt-10 space-y-8">
-                    <livewire:post.item />
+                    @if ($posts)
+                        @foreach ($posts->take(10) as $post)
+                            <livewire:post.item wire:key="post-{{ $post->id }}" :post="$post"/>
+                        @endforeach
+                    @else
+                        <p class="font-bold flex justify-center">No posts</p>
+                    @endif
                 </section>
             </aside>
         
