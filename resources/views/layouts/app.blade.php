@@ -58,6 +58,7 @@
         
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
     </head>
     <body class="font-sans antialiased">
           <div class="drawer lg:drawer-open">
@@ -87,5 +88,6 @@
             </div>
         </div>
         
+    @livewire('wire-elements-modal')
     </body>
 </html>

@@ -23,9 +23,18 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $photos = [
+            'images/person1.jpeg',
+            'images/person2.jpeg',
+            'images/person3.jpeg',
+            'images/person4.jpeg',
+            'images/person5.jpeg',
+        ];
+        
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'photo' => fake()->randomElement($photos),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
