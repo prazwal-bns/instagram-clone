@@ -82,7 +82,7 @@
                     {{ $slot }}
                 </div>
             </div>
-            <div class="drawer-side fixed inset-0 z-50"> <!-- Fixed positioning with z-index -->
+            <div class="drawer-side fixed inset-0"> <!-- Fixed positioning with z-index -->
                 <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
                 @include('layouts.sidebar')
             </div>
