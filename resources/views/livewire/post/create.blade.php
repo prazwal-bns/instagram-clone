@@ -90,7 +90,7 @@
 
             <div class="flex items-center gap-2">
                 <x-avatar class="w-9 h-9" />
-                <h5 class="font-bold">Namu</h5>
+                <h5 class="font-bold">{{ auth()->user()->name }}</h5>
             </div>
 
             <div>
