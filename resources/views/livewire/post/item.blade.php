@@ -1,17 +1,17 @@
-<div class="max-w-xl mx-auto"> 
+<div class="max-w-xl mx-auto">
     {{-- header --}}
     <header class="flex items-center gap-3">
-        <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="h-10 w-10" />
+        <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="w-10 h-10" />
 
-        <div class="grid grid-cols-7 w-full gap-2">
+        <div class="grid w-full grid-cols-7 gap-2">
 
             <div class="col-span-5">
-                <h5 class="font-semibold truncate text-sm"> {{ $post->user->name }} </h5>
+                <h5 class="text-sm font-semibold truncate"> {{ $post->user->name }} </h5>
             </div>
 
-            <div class="col-span-2 flex text-right justify-end">
+            <div class="flex justify-end col-span-2 text-right">
 
-                <button class="text-gray-500 ml-auto">
+                <button class="ml-auto text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                         <path
@@ -36,12 +36,12 @@
                 pagination: {
                     el: '.swiper-pagination',
                 },
-            
+
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },
-            
+
             });" class="swiper h-[500px] border bg-white">
                 <ul x-cloak class="swiper-wrapper">
                     <!-- Slides -->
@@ -57,18 +57,18 @@
                                 alt="" class="h-[500px] w-full block object-scale-down">
                                 @break
                             @default
-                                
+
                         @endswitch
                     </li>
                     @endforeach
-                    
+
 
                     {{-- <li class="swiper-slide"> <img
                         src="https://images.pexels.com/photos/17342296/pexels-photo-17342296/free-photo-of-balloons-flying-over-the-canyons.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                         alt="" class="h-[500px] w-full block object-scale-down">
-                    </li>  
+                    </li>
                      <li class="swiper-slide"> <x-video /> </li>
-                    <li class="swiper-slide"> <img 
+                    <li class="swiper-slide"> <img
                             src="https://images.pexels.com/photos/30165563/pexels-photo-30165563/free-photo-of-majestic-mountain-silhouette-at-purple-dusk.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                             alt="" class="h-[500px] w-full block object-scale-down">
                     </li>
@@ -76,11 +76,11 @@
                             src="https://images.pexels.com/photos/14846793/pexels-photo-14846793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                             alt="" class="h-[500px] w-full block object-scale-down">
                     </li> --}}
-                    
+
                 </ul>
                 <!-- If we need pagination -->
                 <div class="swiper-pagination"></div>
-                
+
                 @if ($post->media->count() > 1)
                     <div class="swiper-button-prev">
 
@@ -100,7 +100,7 @@
 
     {{-- footer --}}
     <footer>
-        <div class="flex gap-4 items-center my-2">
+        <div class="flex items-center gap-4 my-2">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.9"
                     stroke="currentColor" class="w-6 h-6">
@@ -119,7 +119,7 @@
 
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-send w-5 h-5" viewBox="0 0 16 16">
+                    class="w-5 h-5 bi bi-send" viewBox="0 0 16 16">
                     <path
                         d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
                 </svg>
@@ -135,31 +135,32 @@
         </div>
 
         {{-- Likes or views --}}
-        <p class="font-bold text-sm">103,564 likes</p>
+        <p class="text-sm font-bold">103,564 likes</p>
 
         {{-- name & comment --}}
-        <div class=" flex text-sm gap-2 font-medium ">
+        <div class="flex gap-2 text-sm font-medium ">
             <p> <strong class="font-bold">{{ $post->user->name }}</strong> {{ $post->description }}</p>
         </div>
 
         {{-- View Post Modal --}}
-        <button onclick="Livewire.dispatch('openModal',{component: 'post.view.modal', arguments: {'post': {{ $post->id }}}})" class="text-slate-500/90 text-sm font-medium">View all {{ $post->comments->count() }} comments </button>
+        <button onclick="Livewire.dispatch('openModal',{component: 'post.view.modal', arguments: {'post': {{ $post->id }}}})" class="text-sm font-medium text-slate-500/90">View all {{ $post->comments->count() }} comments </button>
 
         {{-- Leave comment --}}
-        <form class="grid grid-cols-12 items-center w-full  "x-data="{ inputText: '' }">
+        <form wire:key="{{ time() }}" class="grid items-center w-full grid-cols-12 " x-data="{ body:@entangle('body') }"
+            @submit.prevent="$wire.addComment()">
 
             @csrf
             <input placeholder="Leave a comment" type="text"
-                class="border-0 col-span-10 placeholder:text-sm text-sm outline-none w-full focus:outline-none px-0 rounded-lg hover:ring-0 focus:ring-0"
-                x-model="inputText">
+                class="w-full col-span-10 px-0 text-sm border-0 rounded-lg outline-none placeholder:text-sm focus:outline-none hover:ring-0 focus:ring-0"
+                x-model="body">
 
-            <div class="col-span-1 ml-auto flex justify-end text-right  ">
-                <button x-cloak class="text-sm font-semibold flex justify-end text-blue-500"
-                    x-show="inputText.length > 0">Post</button>
+            <div class="flex justify-end col-span-1 ml-auto text-right ">
+                <button type="submit" x-cloak class="flex justify-end text-sm font-semibold text-blue-500"
+                    x-show="body.length > 0">Post</button>
 
             </div>
 
-            <span class="col-span-1 ml-auto  ">
+            <span class="col-span-1 ml-auto ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round"

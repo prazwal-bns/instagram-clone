@@ -14,7 +14,7 @@ class Modal extends ModalComponent
 
     /**
      * Supported: 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl'
-     * 
+     *
      */
     public static function modalMaxWidth(): string
     {
@@ -29,24 +29,24 @@ class Modal extends ModalComponent
 
 
     function mount() {
-        
+
         $this->post=Post::findOrFail($this->post);
 
-        #get url to push in the history state  ---we will create this route later 
+        #get url to push in the history state  ---we will create this route later
         $url=url('post/'.$this->post->id);
-        
+
         #push state using new livewire js() helper , you can check docks for that
-        $this->js("history.pushState({}, '', '{$url}')"); 
+        $this->js("history.pushState({}, '', '{$url}')");
 
 
     }
 
- 
+
 
     public function render()
     {
         return <<<'BLADE'
-        <main class="bg-white h-[calc(100vh_-_3.5rem)] md:h-[calc(100vh_-_5rem)]  flex flex-col border gap-y-4  px-5">
+        <main class="bg-white h-[calc(100vh_-_3.5rem)] md:h-[calc(100vh_-_5rem)] p-2  flex flex-col border gap-y-4  px-5">
         {{-- header --}}
         <livewire:post.view.item :post="$this->post" />
 
