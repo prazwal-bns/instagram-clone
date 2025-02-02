@@ -1,6 +1,6 @@
 <div class="flex items-center gap-3 py-2 ">
 
-    <x-avatar
+    <x-avatar wire:ignore
     src="{{ $comment->user->photo ? asset($comment->user->photo) : 'https://randomuser.me/api/portraits/men/' . ($comment->user->id % 100) . '.jpg' }}"
     class="w-8 h-8 mb-auto" />
 

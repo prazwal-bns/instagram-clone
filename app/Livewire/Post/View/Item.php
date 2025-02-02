@@ -38,4 +38,9 @@ class Item extends Component
         $this->parent_id = $comment->id;
         $this->body="@".$comment->user->name;
     }
+
+    public function togglePostLike(){
+        abort_unless(auth()->check(),401);
+        auth()->user()->toggleLike($this->post);
+    }
 }

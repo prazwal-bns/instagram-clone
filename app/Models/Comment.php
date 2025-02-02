@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Overtrue\LaravelLike\Traits\Likeable;
 
 class Comment extends Model
 {
     /** @use HasFactory<\Database\Factories\CommentFactory> */
     use HasFactory;
     use SoftDeletes;
+    use Likeable;
 
     protected $guarded=[];
 
@@ -37,7 +39,7 @@ class Comment extends Model
 
 
     function user() : BelongsTo {
-        
+
         return $this->BelongsTo(User::class);
     }
 }
