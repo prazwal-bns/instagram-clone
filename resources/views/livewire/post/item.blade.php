@@ -1,7 +1,8 @@
 <div class="max-w-xl mx-auto">
     {{-- header --}}
     <header class="flex items-center gap-3">
-        <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="w-10 h-10" />
+        {{-- <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="w-10 h-10" /> --}}
+        <x-avatar story src="{{ $post->user->photo }}" class="w-10 h-10" />
 
         <div class="grid w-full grid-cols-7 gap-2">
 

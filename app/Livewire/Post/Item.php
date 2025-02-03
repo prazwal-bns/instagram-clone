@@ -32,6 +32,8 @@ class Item extends Component
         $this->reset('body');
     }
 
+
+
     public function togglePostLike(){
         abort_unless(auth()->check(),401);
         auth()->user()->toggleLike($this->post);
