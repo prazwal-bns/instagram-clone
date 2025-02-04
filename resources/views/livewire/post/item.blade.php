@@ -1,4 +1,26 @@
 <div class="max-w-xl mx-auto">
+
+<style>
+    @keyframes heartAnimation {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.heart-animation {
+    animation: heartAnimation 1s ease-out;
+    color: #f35369;
+}
+</style>
     {{-- header --}}
     <header class="flex items-center gap-3">
         {{-- <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="w-10 h-10" /> --}}
@@ -33,7 +55,7 @@
             <!-- Slider main container -->
             <div x-init="new Swiper($el, {
                 modules: [Navigation, Pagination],
-                loop: true,
+                loop: false,
                 pagination: {
                     el: '.swiper-pagination',
                 },
@@ -53,31 +75,25 @@
                                 <x-video source="{{ $file->url }}"/>
                                 @break
                             @case('image')
-                                <img
-                                src="{{ $file->url }}"
-                                alt="" class="h-[500px] w-full block object-scale-down">
+                                <div x-data="{ liked: false }" class="relative">
+                                    <img
+                                        src="{{ $file->url }}"
+                                        alt="" class="h-[500px] w-full block object-scale-down"
+                                        x-on:dblclick="liked = true; $wire.likePost(); setTimeout(() => liked = false, 1000)"
+                                    >
+                                    <!-- Heart icon for feedback -->
+                                    <div x-show="liked" class="absolute inset-0 flex items-center justify-center">
+                                        <svg class="w-20 h-20 opacity-75 heart-animation" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 3.616l-1.265-1.27a5.5 5.5 0 00-7.78 7.78l7.78 7.78 7.78-7.78a5.5 5.5 0 00-7.78-7.78L10 3.616z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                </div>
                                 @break
                             @default
 
                         @endswitch
                     </li>
                     @endforeach
-
-
-                    {{-- <li class="swiper-slide"> <img
-                        src="https://images.pexels.com/photos/17342296/pexels-photo-17342296/free-photo-of-balloons-flying-over-the-canyons.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                        alt="" class="h-[500px] w-full block object-scale-down">
-                    </li>
-                     <li class="swiper-slide"> <x-video /> </li>
-                    <li class="swiper-slide"> <img
-                            src="https://images.pexels.com/photos/30165563/pexels-photo-30165563/free-photo-of-majestic-mountain-silhouette-at-purple-dusk.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            alt="" class="h-[500px] w-full block object-scale-down">
-                    </li>
-                    <li class="swiper-slide"> <img
-                            src="https://images.pexels.com/photos/14846793/pexels-photo-14846793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            alt="" class="h-[500px] w-full block object-scale-down">
-                    </li> --}}
-
                 </ul>
                 <!-- If we need pagination -->
                 <div class="swiper-pagination"></div>
@@ -102,6 +118,7 @@
     {{-- footer --}}
     <footer>
         <div class="flex items-center gap-4 my-2">
+            {{-- Heart --}}
             @if ($post->isLikedBy(auth()->user()))
                 <button wire:click="togglePostLike()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-rose-500">
@@ -169,7 +186,7 @@
         @auth
         {{-- Show auth comments  --}}
         <ul class="my-2">
-            @foreach ($post->comments()->where('user_id',auth()->id())->get() as $comment)
+            @foreach ($post->comments()->where('user_id',auth()->id())->latest()->take(2)->get() as $comment)
             <li class="grid items-center grid-cols-12 text-sm">
 
                 <span class="col-span-2 mb-auto font-bold">{{auth()->user()->name}}</span>

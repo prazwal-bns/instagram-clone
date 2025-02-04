@@ -32,7 +32,10 @@ class Item extends Component
         $this->reset('body');
     }
 
-
+    public function likePost(){
+        abort_unless(auth()->check(),401);
+        auth()->user()->like($this->post);
+    }
 
     public function togglePostLike(){
         abort_unless(auth()->check(),401);
