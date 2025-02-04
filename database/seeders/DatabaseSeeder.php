@@ -16,11 +16,27 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
+        $photos = [
+            'images/person1.jpeg',
+            'images/person2.jpeg',
+            'images/person3.jpeg',
+            'images/person4.jpeg',
+            'images/person5.jpeg',
+        ];
 
         User::factory()->create([
             'name' => 'User 1',
+            'username' => 'user_1',
+            'photo' => fake()->randomElement($photos),
             'email' => 'user1@gmail.com',
+            'password'=> '@user123',
+        ]);
+
+        User::factory()->create([
+            'name' => 'User 2',
+            'username' => 'user_2',
+            'photo' => fake()->randomElement($photos),
+            'email' => 'user2@gmail.com',
             'password'=> '@user123',
         ]);
 

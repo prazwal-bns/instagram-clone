@@ -96,7 +96,9 @@ class="w-full h-full">
             {{-- Suggestions --}}
             <aside class="hidden p-4 lg:col-span-4 lg:block">
                 <div class="flex items-center gap-2">
-                    <x-avatar class="w-12 h-12" src="{{ auth()->user()->photo ? auth()->user()->photo : 'https://randomuser.me/api/portraits/men/' . rand(0, 99) . '.jpg' }}" />
+
+                    <x-avatar class="w-12 h-12" src="{{ 'https://randomuser.me/api/portraits/men/' . rand(0, 99) . '.jpg' }}" />
+
                     <h4 class="font-medium">{{ auth()->user()->name }}</h4>
                 </div>
                 <section class="mt-4">
@@ -104,10 +106,17 @@ class="w-full h-full">
                     <ul class="my-2 space-y-3">
                         @foreach ($suggestedUsers as $user)
                             <li class="flex items-center gap-3">
-                                <x-avatar src="{{ $user->photo }}" class="w-12 h-12" />
+
+                                <a href="{{ route('profile.home', $user->username) }}" class="font-semibold truncate">
+                                    <x-avatar class="w-12 h-12" src="{{ auth()->user()->photo ? auth()->user()->photo : 'https://randomuser.me/api/portraits/men/' . rand(0, 99) . '.jpg' }}" />
+                                </a>
+
                                 <div class="grid w-full grid-cols-7 gap-2">
                                     <div class="col-span-5">
-                                        <h5 class="text-sm font-semibold truncate">{{$user->name}} </h5>
+                                        <a href="{{ route('profile.home', $user->username) }}" class="font-semibold truncate">
+                                            {{ $user->name }}
+                                        </a>
+
                                         <p class="text-xs truncate">Followed by {{$user->name}} </p>
                                     </div>
                                     <div class="flex justify-end col-span-2 text-right">
