@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Post;
+use App\Models\User;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -50,7 +51,7 @@ class Home extends Component
         #increment page
         $this->perPage += $this->perPageIncrement;
 
-        #load posts 
+        #load posts
         $this->loadPosts();
      }
 
@@ -68,8 +69,14 @@ class Home extends Component
         $this->loadPosts();
     }
 
+    public function toggleFollow(User $user){
+        abort_unless(auth()->check(),401);
+        auth()->user()->toggleFollow($user);
+    }
+
     public function render()
     {
-        return view('livewire.home');
+        $suggestedUsers = User::where('id', '!=', auth()->id())->limit(5)->get();
+        return view('livewire.home',['suggestedUsers' => $suggestedUsers]);
     }
 }
