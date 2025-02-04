@@ -30,10 +30,15 @@ class UserFactory extends Factory
             'images/person4.jpeg',
             'images/person5.jpeg',
         ];
-        
+
+        $name = fake()->name();
+        $baseUsername = Str::slug($name, '_');
+        $uniqueUsername = $baseUsername . '_' . fake()->unique()->numberBetween(1000, 9999);
+
         return [
-            'name' => fake()->name(),
-            'email' => time().fake()->unique()->safeEmail(),
+            'name' => $name,
+            'email' => time() . fake()->unique()->safeEmail(),
+            'username' => $uniqueUsername,
             'photo' => fake()->randomElement($photos),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

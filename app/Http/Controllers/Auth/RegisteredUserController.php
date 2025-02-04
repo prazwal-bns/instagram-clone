@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -35,8 +36,12 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Generate a unique username based on the name
+        $username = $this->generateUniqueUsername($request->name);
+
         $user = User::create([
             'name' => $request->name,
+            'username' => $username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -47,4 +52,22 @@ class RegisteredUserController extends Controller
 
         return redirect(route('dashboard', absolute: false));
     }
+
+    /**
+     * Generate a unique username from the user's name
+     */
+    private function generateUniqueUsername($name)
+    {
+        $baseUsername = Str::slug($name, '_'); // Convert name to a username-friendly format
+        $username = $baseUsername;
+        $counter = 1;
+
+        while (User::where('username', $username)->exists()) {
+            $username = $baseUsername . '_' . $counter;
+            $counter++;
+        }
+
+        return $username;
+    }
+
 }
