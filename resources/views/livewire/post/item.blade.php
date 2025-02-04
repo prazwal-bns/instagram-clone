@@ -1,26 +1,27 @@
 <div class="max-w-xl mx-auto">
-
 <style>
     @keyframes heartAnimation {
-    0% {
-        transform: scale(0);
-        opacity: 1;
+        0% {
+            transform: scale(0) translateY(0);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.2) translateY(-15px);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1) translateY(-50px);
+            opacity: 0;
+        }
     }
-    50% {
-        transform: scale(1.2);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0;
-    }
-}
 
-.heart-animation {
-    animation: heartAnimation 1s ease-out;
-    color: #f35369;
-}
+    .heart-animation {
+        animation: heartAnimation 1s ease-in-out forwards; /* Added 'forwards' to keep the final state */
+    }
 </style>
+
+
+
     {{-- header --}}
     <header class="flex items-center gap-3">
         {{-- <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="w-10 h-10" /> --}}
@@ -55,7 +56,7 @@
             <!-- Slider main container -->
             <div x-init="new Swiper($el, {
                 modules: [Navigation, Pagination],
-                loop: false,
+                loop: true,
                 pagination: {
                     el: '.swiper-pagination',
                 },
@@ -75,19 +76,31 @@
                                 <x-video source="{{ $file->url }}"/>
                                 @break
                             @case('image')
-                                <div x-data="{ liked: false }" class="relative">
-                                    <img
-                                        src="{{ $file->url }}"
-                                        alt="" class="h-[500px] w-full block object-scale-down"
-                                        x-on:dblclick="liked = true; $wire.likePost(); setTimeout(() => liked = false, 1000)"
-                                    >
-                                    <!-- Heart icon for feedback -->
-                                    <div x-show="liked" class="absolute inset-0 flex items-center justify-center">
-                                        <svg class="w-20 h-20 opacity-75 heart-animation" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 3.616l-1.265-1.27a5.5 5.5 0 00-7.78 7.78l7.78 7.78 7.78-7.78a5.5 5.5 0 00-7.78-7.78L10 3.616z" clip-rule="evenodd"/>
-                                        </svg>
-                                    </div>
+                            <svg width="0" height="0">
+                                <defs>
+                                    <linearGradient id="heartGradient" x1="-1.77809" y1="-0.460531" x2="37.5412" y2="27.0711" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#FF7A00"/>
+                                        <stop offset="0.4" stop-color="#FF0169"/>
+                                        <stop offset="1" stop-color="#D300C5"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+
+                            <div x-data="{ liked: false }" class="relative">
+                                <img
+                                    src="{{ $file->url }}"
+                                    alt=""
+                                    class="h-[500px] w-full block object-scale-down"
+                                    x-on:dblclick="liked = true; $wire.likePost(); setTimeout(() => liked = false, 1000)"
+                                >
+
+                                <!-- Heart icon for feedback -->
+                                <div x-show="liked" x-transition.opacity class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 opacity-75 heart-animation" width="48" height="42" viewBox="0 0 48 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M34.6 0.100098C30.1 0.100098 26.7 1.9001 24 5.7001C21.3 2.0001 17.9 0.200098 13.4 0.200098C6 0.100098 0 6.6001 0 14.6001C0 21.9001 5.4 26.6001 10.6 31.1001C11.2 31.6001 11.9 32.2001 12.5 32.8001L14.8 34.8001C19.2 38.7001 21.4 40.7001 22.4 41.3001C22.9 41.6001 23.5 41.8001 24 41.8001C24.5 41.8001 25.1 41.6001 25.6 41.3001C26.6 40.7001 28.4 39.1001 33.4 34.5001L35.4 32.7001C36.1 32.1001 36.7 31.5001 37.4 31.0001C42.7 26.6001 48 22.0001 48 14.6001C48 6.6001 42 0.100098 34.6 0.100098Z" fill="url(#heartGradient)"/>
+                                    </svg>
                                 </div>
+                            </div>
                                 @break
                             @default
 
