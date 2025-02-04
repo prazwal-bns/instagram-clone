@@ -1,27 +1,4 @@
 <div class="max-w-xl mx-auto">
-<style>
-    @keyframes heartAnimation {
-        0% {
-            transform: scale(0) translateY(0);
-            opacity: 1;
-        }
-        50% {
-            transform: scale(1.2) translateY(-15px);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(1) translateY(-100px);
-            opacity: 0;
-        }
-    }
-
-    .heart-animation {
-        animation: heartAnimation 0.5s ease-in-out forwards;
-    }
-</style>
-
-
-
     {{-- header --}}
     <header class="flex items-center gap-3">
         {{-- <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="w-10 h-10" /> --}}
@@ -67,7 +44,7 @@
                 },
 
             });" class="swiper h-[500px] border bg-white">
-                <ul x-cloak class="swiper-wrapper">
+                <ul x-cloak class="swiper-wrapper" >
                     <!-- Slides -->
                     @foreach ($post->media as $file)
                     <li class="swiper-slide">
@@ -171,13 +148,26 @@
                 </svg>
             </span>
 
+            {{-- Bookmark --}}
             <span class="ml-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-                </svg>
+            @if ($post->hasBeenFavoritedBy(auth()->user()))
+                <button wire:click="toggleFavourite()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-rose-500">
+                        <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" />
+                      </svg>
+                </button>
+            @else
+                <button wire:click="toggleFavourite()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                    </svg>
+                </button>
+            @endif
+
             </span>
+
         </div>
 
         @if ($post->totalLikers>0 && !$post->hide_like_view)

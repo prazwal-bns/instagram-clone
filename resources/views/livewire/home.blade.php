@@ -1,4 +1,4 @@
-<div 
+<div
 x-data="{
 
   canLoadMore:@entangle('canLoadMore')
@@ -28,49 +28,49 @@ x-data="{
 class="w-full h-full">
 
     {{--Header----}}
-    <header class="md:hidden sticky top-0 bg-white">
-        <div class="grid grid-cols-12 gap-2 items-center">
-  
+    <header class="sticky top-0 bg-white md:hidden">
+        <div class="grid items-center grid-cols-12 gap-2">
+
             <div class="col-span-3">
-  
-              <img src="{{asset('assets/logo.png')}}"  class="h-12 max-w-lg w-full" alt="logo">
-  
+
+              <img src="{{asset('assets/logo.png')}}"  class="w-full h-12 max-w-lg" alt="logo">
+
             </div>
-  
-              <div class="col-span-8 flex justify-center px-2">
-  
-                <input type="text" placeholder="Search" 
-                 class=" border-0 outline-none w-full focus:outline-none bg-gray-100 rounded-lg" 
+
+              <div class="flex justify-center col-span-8 px-2">
+
+                <input type="text" placeholder="Search"
+                 class="w-full bg-gray-100 border-0 rounded-lg outline-none focus:outline-none"
                 >
-                
+
               </div>
-  
-            <div class="col-span-1 flex justify-center">
-  
+
+            <div class="flex justify-center col-span-1">
+
               <a href="#">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.9" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                   </svg>
-                  
+
                 </span>
               </a>
-              
+
             </div>
         </div>
       </header>
 
     {{--Main------}}
 
-    {{-- <main class="grid lg:grid-cols-12 gap-8 md:mt-10"> --}}
-        <main class="grid lg:grid-cols-12 gap-8 md:mt-10 items-start">
-            
-            <aside class="lg:col-span-8  overflow-hidden">
-    
+    {{-- <main class="grid gap-8 lg:grid-cols-12 md:mt-10"> --}}
+        <main class="grid items-start gap-8 lg:grid-cols-12 md:mt-10">
+
+            <aside class="overflow-hidden lg:col-span-8">
+
                 {{-- Stories --}}
                 <section>
-                    <ul class="flex overflow-x-auto items-center scrollbar-hide gap-3 w-full">
-                        @for ($i = 0; $i < 10; $i++)
+                    <ul class="flex items-center w-full gap-3 px-16 overflow-x-auto scrollbar-hide">
+                        @for ($i = 0; $i < 15; $i++)
                             <li class="flex flex-col justify-center w-20 gap-1 p-2">
                                 <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="h-18 w-18" />
                                 <p class="text-xs font-medium truncate">{{ fake()->name }}</p>
@@ -78,8 +78,8 @@ class="w-full h-full">
                         @endfor
                     </ul>
                 </section>
-                
-    
+
+
                 {{-- Posts --}}
                 <section class="mt-10 space-y-8">
                     @if ($posts)
@@ -87,14 +87,14 @@ class="w-full h-full">
                             <livewire:post.item wire:key="post-{{ $post->id }}" :post="$post"/>
                         @endforeach
                     @else
-                        <p class="font-bold flex justify-center">No posts</p>
+                        <p class="flex justify-center font-bold">No posts</p>
                     @endif
                 </section>
             </aside>
-        
+
 
             {{-- Suggestions --}}
-            <aside class="lg:col-span-4  hidden lg:block p-4">
+            <aside class="hidden p-4 lg:col-span-4 lg:block">
                 <div class="flex items-center gap-2">
                     <x-avatar class="w-12 h-12" src="{{ auth()->user()->photo ? auth()->user()->photo : 'https://randomuser.me/api/portraits/men/' . rand(0, 99) . '.jpg' }}" />
                     <h4 class="font-medium">{{ auth()->user()->name }}</h4>
@@ -105,13 +105,13 @@ class="w-full h-full">
                         @for ($i = 0; $i < 5; $i++)
                             <li class="flex items-center gap-3">
                                 <x-avatar src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="w-12 h-12" />
-                                <div class="grid grid-cols-7 w-full gap-2">
+                                <div class="grid w-full grid-cols-7 gap-2">
                                     <div class="col-span-5">
-                                        <h5 class="font-semibold truncate text-sm">{{fake()->name}} </h5>
+                                        <h5 class="text-sm font-semibold truncate">{{fake()->name}} </h5>
                                         <p class="text-xs truncate">Followed by {{fake()->name}} </p>
                                     </div>
-                                    <div class="col-span-2 flex text-right justify-end">
-                                        <button class="font-bold text-sm text-blue-500 ml-auto">Follow</button>
+                                    <div class="flex justify-end col-span-2 text-right">
+                                        <button class="ml-auto text-sm font-bold text-blue-500">Follow</button>
                                     </div>
                                 </div>
                             </li>
@@ -121,25 +121,25 @@ class="w-full h-full">
                 {{-- App links --}}
                 <section class="mt-5">
 
-                    <ol class="flex gap-2 flex-wrap">
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">About</a></li>
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">Help</a></li>
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">Press</a></li>
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">API</a></li>
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">Jobs</a>
+                    <ol class="flex flex-wrap gap-2">
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">About</a></li>
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">Help</a></li>
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">Press</a></li>
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">API</a></li>
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">Jobs</a>
                         </li>
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">Privacy </a>
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">Privacy </a>
                         </li>
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">Terms</a></li>
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">Locations</a>
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">Language</a>
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">Terms</a></li>
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">Locations</a>
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">Language</a>
                         </li>
-                        <li class="text-xs text-gray-800/90 font-medium"><a href="#" class="hover:underline">Meta
+                        <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">Meta
                                 Verified</a></li>
                     </ol>
 
 
-                    <h3 class="text-gray-800/90 mt-6 text-sm">© 2025 Instagram from Meta</h3>
+                    <h3 class="mt-6 text-sm text-gray-800/90">© 2025 Instagram from Meta</h3>
 
                 </section>
 

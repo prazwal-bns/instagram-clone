@@ -46,4 +46,9 @@ class Item extends Component
         abort_unless(auth()->check(),401);
         auth()->user()->toggleLike($comment);
     }
+
+    public function toggleFavourite(){
+        abort_unless(auth()->check(),401);
+        auth()->user()->toggleFavorite($this->post);
+    }
 }

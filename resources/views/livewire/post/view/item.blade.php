@@ -8,28 +8,49 @@
             class="relative flex overflow-x-scroll overscroll-contain w-[500px] selection:snap-x snap-mandatory gap-2 px-2">
 
 
-            @foreach ($post->media as $key =>$file)
+            @foreach ($post->media as $key => $file)
 
-            <div class="w-full h-full shrink-0 snap-always snap-center">
+            <div class="w-full h-full shrink-0 snap-always snap-center" x-data="{ liked: false }">
 
                 @switch($file->mime)
-                @case('video')
+                    @case('video')
+                        <x-video source="{{$file->url}}" />
+                    @break
+                    @case('image')
+                        <svg width="0" height="0">
+                            <defs>
+                                <linearGradient id="heartGradient" x1="-1.77809" y1="-0.460531" x2="37.5412" y2="27.0711" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FF7A00"/>
+                                    <stop offset="0.4" stop-color="#FF0169"/>
+                                    <stop offset="1" stop-color="#D300C5"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
 
-                <x-video source="{{$file->url}}" />
+                        <div class="relative">
+                            <img
+                                src="{{$file->url}}"
+                                alt="image"
+                                class="block object-scale-down w-full h-full"
+                                x-on:dblclick="liked = true; $wire.likePost(); setTimeout(() => liked = false, 1000)"
+                            >
 
-                @break
-                @case('image')
+                            <!-- Heart icon for feedback -->
+                            <div x-show="liked" x-transition.opacity class="absolute inset-0 flex items-center justify-center">
+                                <svg class="w-32 h-32 opacity-75 heart-animation" width="48" height="42" viewBox="0 0 48 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M34.6 0.100098C30.1 0.100098 26.7 1.9001 24 5.7001C21.3 2.0001 17.9 0.200098 13.4 0.200098C6 0.100098 0 6.6001 0 14.6001C0 21.9001 5.4 26.6001 10.6 31.1001C11.2 31.6001 11.9 32.2001 12.5 32.8001L14.8 34.8001C19.2 38.7001 21.4 40.7001 22.4 41.3001C22.9 41.6001 23.5 41.8001 24 41.8001C24.5 41.8001 25.1 41.6001 25.6 41.3001C26.6 40.7001 28.4 39.1001 33.4 34.5001L35.4 32.7001C36.1 32.1001 36.7 31.5001 37.4 31.0001C42.7 26.6001 48 22.0001 48 14.6001C48 6.6001 42 0.100098 34.6 0.100098Z" fill="url(#heartGradient)"/>
+                                </svg>
+                            </div>
+                        </div>
 
-                <img src="{{$file->url}}" alt="image" class="block object-scale-down w-full h-full">
-
-                @break
-                @default
-
+                    @break
+                    @default
                 @endswitch
 
             </div>
 
             @endforeach
+
 
 
 
@@ -144,15 +165,21 @@
                 </span>
 
                 {{-- Bookmark --}}
-                <span class="ml-auto">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-                    </svg>
-
-                </span>
+                @if ($post->hasBeenFavoritedBy(auth()->user()))
+                    <button wire:click="toggleFavourite()" class="ml-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-rose-500">
+                            <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                @else
+                    <button wire:click="toggleFavourite()" class="ml-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                        </svg>
+                    </button>
+                @endif
 
             </div>
 

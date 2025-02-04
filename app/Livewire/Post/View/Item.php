@@ -39,6 +39,11 @@ class Item extends Component
         $this->body="@".$comment->user->name;
     }
 
+    public function likePost(){
+        abort_unless(auth()->check(),401);
+        auth()->user()->like($this->post);
+    }
+
     public function togglePostLike(){
         abort_unless(auth()->check(),401);
         auth()->user()->toggleLike($this->post);
@@ -47,5 +52,10 @@ class Item extends Component
     public function toggleCommentLike(Comment $comment){
         abort_unless(auth()->check(),401);
         auth()->user()->toggleLike($comment);
+    }
+
+    public function toggleFavourite(){
+        abort_unless(auth()->check(),401);
+        auth()->user()->toggleFavorite($this->post);
     }
 }
