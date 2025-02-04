@@ -10,13 +10,13 @@
             opacity: 1;
         }
         100% {
-            transform: scale(1) translateY(-50px);
+            transform: scale(1) translateY(-100px);
             opacity: 0;
         }
     }
 
     .heart-animation {
-        animation: heartAnimation 1s ease-in-out forwards; /* Added 'forwards' to keep the final state */
+        animation: heartAnimation 0.5s ease-in-out forwards;
     }
 </style>
 
