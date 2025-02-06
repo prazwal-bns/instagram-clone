@@ -95,20 +95,23 @@ class="w-full h-full">
 
             {{-- Suggestions --}}
             <aside class="hidden p-4 lg:col-span-4 lg:block">
-                <div class="flex items-center gap-2">
+                <a href="{{ route('profile.home', auth()->user()->username) }}">
+                    <div class="flex items-center gap-2">
 
-                    <x-avatar class="w-12 h-12" src="{{ 'https://randomuser.me/api/portraits/men/' . rand(0, 99) . '.jpg' }}" />
-
-                    <h4 class="font-medium">{{ auth()->user()->name }}</h4>
-                </div>
+                        <x-avatar class="w-12 h-12" src="{{ auth()->user()->photo }}" />
+    
+                        <h4 class="font-medium">{{ auth()->user()->name }}</h4>
+                    </div>
+                </a>
                 <section class="mt-4">
                     <h4 class="font-bold text-gray-700/95">Suggestions For You</h4>
                     <ul class="my-2 space-y-3">
                         @foreach ($suggestedUsers as $user)
                             <li class="flex items-center gap-3">
 
-                                <a href="{{ route('profile.home', $user->username) }}" class="font-semibold truncate">
-                                    <x-avatar class="w-12 h-12" src="{{ auth()->user()->photo ? auth()->user()->photo : 'https://randomuser.me/api/portraits/men/' . rand(0, 99) . '.jpg' }}" />
+                                <a href="{{ route('profile.home', $user->username) }}" class="font-semibold ">
+                                    <x-avatar class="w-12 h-12" 
+                                        src="{{ $user->photo ? $user->photo : 'https://randomuser.me/api/portraits/men/' . rand(0, 99) . '.jpg' }}" />
                                 </a>
 
                                 <div class="grid w-full grid-cols-7 gap-2">
