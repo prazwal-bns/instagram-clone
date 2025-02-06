@@ -162,7 +162,7 @@
 
         <li><a href="{{ route('profile.home', auth()->user()->username) }}" class="flex items-center gap-5">
 
-                <x-avatar class="w-7 h-7 shrink-0" src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : 'https://randomuser.me/api/portraits/men/' . rand(0, 99) . '.jpg' }}" />
+                <x-avatar class="w-7 h-7 shrink-0" src="{{ auth()->user()->photo }}" />
 
                 <h4 x-cloak x-show="!(shrink||drawer)"  class="text-lg font-medium ">Profile</h4>
             </a></li>

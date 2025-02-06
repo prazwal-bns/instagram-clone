@@ -2,12 +2,16 @@
     {{-- header --}}
     <header class="flex items-center gap-3">
         {{-- <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="w-10 h-10" /> --}}
-        <x-avatar story src="{{ $post->user->photo }}" class="w-10 h-10" />
+        
+        <a href="{{ route('profile.home', $post->user->username) }}">
+            <x-avatar src="{{ $post->user->photo }}" class="w-10 h-10" />
+        </a>
+        
 
         <div class="grid w-full grid-cols-7 gap-2">
 
             <div class="col-span-5">
-                <h5 class="text-sm font-semibold truncate"> {{ $post->user->name }} </h5>
+                <a href="{{ route('profile.home', $post->user->username) }}" class="text-sm font-semibold truncate"> {{ $post->user->name }} </a>
             </div>
 
             <div class="flex justify-end col-span-2 text-right">

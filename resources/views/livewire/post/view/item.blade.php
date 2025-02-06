@@ -62,12 +62,14 @@
 
         <header class="sticky top-0 z-10 flex items-center gap-3 py-2 bg-white border-b ">
 
-            <x-avatar src="{{ $post->user->photo }}" class="h-9 w-9" />
+            <a href="{{ route('profile.home', $post->user->username) }}">
+                <x-avatar src="{{ asset($post->user->photo) }}" class="w-9 h-9" />
+            </a>
 
             <div class="grid w-full grid-cols-7 gap-2">
 
                 <div class="col-span-5">
-                    <h5 class="text-sm font-semibold truncate">{{$post->user->name}} </h5>
+                    <a href="{{ route('profile.home', $post->user->username) }}" class="text-sm font-semibold truncate">{{$post->user->name}} </a>
                 </div>
 
                 <div class="flex justify-end col-span-2 text-right">

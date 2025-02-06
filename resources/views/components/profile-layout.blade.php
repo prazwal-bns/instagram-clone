@@ -42,7 +42,7 @@
 
         {{-- Avatar --}}
         <div class="flex items-center col-span-4">
-            <x-avatar class="w-20 h-20 m-auto lg:h-44 lg:w-44" src="{{ asset(auth()->user()->photo) }}" />
+            <x-avatar class="w-20 h-20 m-auto lg:h-44 lg:w-44" src="{{ asset($user->photo) }}" />
 
         </div>
 

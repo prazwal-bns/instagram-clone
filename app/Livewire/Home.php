@@ -29,7 +29,7 @@ class Home extends Component
 
 
     #[On('post-created')]
-    public function postCreaed($id)
+    public function postCreated($id)
     {
 
         $post = Post::find($id);

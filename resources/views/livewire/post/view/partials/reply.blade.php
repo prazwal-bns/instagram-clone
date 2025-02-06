@@ -1,6 +1,8 @@
 <div wire:key="reply-{{ $reply->id }}" class="flex items-center w-11/12 gap-3 py-2 ml-auto ">
 
-    <x-avatar wire:ignore src="{{ $reply->user->photo }}" class="w-8 h-8 mb-auto" />
+    <x-avatar wire:ignore
+        src="{{ asset($comment->user->photo) }}"
+        class="w-8 h-8 mb-auto" />
 
     <div class="grid w-full grid-cols-7 gap-2">
         {{-- comment --}}
