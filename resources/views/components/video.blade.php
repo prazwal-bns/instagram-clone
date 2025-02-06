@@ -1,13 +1,15 @@
 @props([
     'source' => 'https://cdn.devdojo.com/pines/videos/coast.mp4',
     'controls' => true,
-    'cover' => false
+    'cover' => false,
+    'autoplay' => false
 ])
 <div x-data={playing:false,muted:false} class="relative w-full h-full m-auto"
     @click.outside="$refs.player.pause()"
     x-intersect:leave="$refs.player.pause()">
 
-    <video x-ref="player" @play="playing=true" @pause="playing=false" class="h-full max-h-[500px] w-full {{ $cover==true? 'object-cover' : '' }}">
+    <video x-ref="player" @play="playing=true" @pause="playing=false" class="h-full max-h-[800px] m-auto w-full {{ $cover==true? 'object-cover' : '' }}"
+    @if($autoplay) autoplay @endif>
         <source src="{{ $source }}" type="video/mp4">
             your browser doesn't support html5
     </video>
