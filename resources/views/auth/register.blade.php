@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="flex justify-center mt-5">
-                    <button class="w-full py-3 text-lg font-semibold text-white bg-gray-800 border border-transparent rounded-md hover:bg-blue-600">
+                    <button class="w-full py-3 text-lg font-semibold text-white bg-gray-800 border border-transparent rounded-md hover:bg-gray-900">
                         Sign up
                     </button>
                 </div>

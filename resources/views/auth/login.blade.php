@@ -53,8 +53,8 @@
                     </label>
                 </div>
 
-                <div class="flex justify-center mt-6">
-                    <button class="w-full py-3 text-lg font-semibold text-white bg-blue-500 border border-transparent rounded-md hover:bg-blue-700">
+                <div class="flex justify-center mt-5">
+                    <button class="w-full py-3 text-lg font-semibold text-white bg-gray-800 border border-transparent rounded-md hover:bg-gray-900">
                         Log in
                     </button>
                 </div>
