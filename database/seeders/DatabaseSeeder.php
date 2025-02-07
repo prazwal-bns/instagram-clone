@@ -17,11 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $photos = [
-            'images/person1.jpeg',
-            'images/person2.jpeg',
-            'images/person3.jpeg',
-            'images/person4.jpeg',
-            'images/person5.jpeg',
+            'images/user.jpg',
         ];
 
         User::factory()->create([
@@ -40,11 +36,11 @@ class DatabaseSeeder extends Seeder
             'password'=> '@user123',
         ]);
 
-        Post::factory(20)->hasComments(rand(20,20))->create(['type'=>'post']);
-        Post::factory(12)->hasComments(rand(15,20))->create(['type'=>'reel']);
+        Post::factory(10)->hasComments(rand(10,15))->create(['type'=>'post']);
+        Post::factory(5)->hasComments(rand(15,20))->create(['type'=>'reel']);
 
         // Create comment replies
-        Comment::limit(50)->each(function($comment){
+        Comment::limit(10)->each(function($comment){
 
             $comment::factory(rand(1,5))->isReply($comment->commentable)->create(['parent_id'=>$comment->id]);
 
@@ -59,7 +55,7 @@ class DatabaseSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             $nestedComment = Comment::factory()->isReply($parentComment->commentable)->create(['parent_id' => $parentComment->id]);
-            $parentComment = $nestedComment; // Set the new comment as the parent for the next iteration
+            $parentComment = $nestedComment;
         }
 
     }

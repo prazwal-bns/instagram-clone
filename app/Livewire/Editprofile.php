@@ -52,9 +52,9 @@ class Editprofile extends Component
         $path = public_path('images/' . $filename);
         File::put($path, file_get_contents($this->photo->getRealPath()));
 
-        if ($this->user->photo && file_exists(public_path($this->user->photo))) {
-            unlink(public_path($this->user->photo));
-        }
+        // if ($this->user->photo && file_exists(public_path($this->user->photo))) {
+        //     unlink(public_path($this->user->photo));
+        // }
 
         $this->user->update(['photo' => 'images/' . $filename]);
 

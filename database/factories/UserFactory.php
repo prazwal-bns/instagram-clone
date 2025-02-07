@@ -24,11 +24,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $photos = [
-            'images/person1.jpeg',
-            'images/person2.jpeg',
-            'images/person3.jpeg',
-            'images/person4.jpeg',
-            'images/person5.jpeg',
+            'images/user.jpg',
         ];
 
         $name = fake()->name();
