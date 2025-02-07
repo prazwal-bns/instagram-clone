@@ -5,28 +5,30 @@
     'autoplay' => false
 ])
 
-<div x-data="{ playing: false, muted: true }" 
+<div x-data="{ playing: false, muted: true }"
     class="relative w-full h-full m-auto"
     x-init="
         const video = $refs.player;
 
         // Function to pause all other videos
         const pauseAllVideos = () => {
-            document.querySelectorAll('video').forEach(v => v.pause());
+            document.querySelectorAll('video').forEach(v => {
+                v.pause();
+            });
         };
-
         // Function to handle visibility change
         const handleVisibility = () => {
             if (document.hidden) {
-                video.pause();
+                pauseAllVideos();
             } else {
+                pauseAllVideos();
                 let rect = video.getBoundingClientRect();
                 if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-                    pauseAllVideos();
                     video.play();
                 }
             }
         };
+
 
         // Listen for tab visibility change
         document.addEventListener('visibilitychange', handleVisibility);

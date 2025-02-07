@@ -8,7 +8,7 @@
         @endphp
 
         <li
-            class="h-[calc(100vh_-_5rem)]  max-w-sm  mx-auto w-full cursor cursor-pointer  rounded-lg
+            class="h-[calc(100vh_-_5rem)]  max-w-md  mx-auto w-full cursor cursor-pointer  rounded-lg
              relative  group  shrink-0 snap-center snap-always grid grid-cols-12 gap-4">
 
             <div class="col-span-11 bg-black border ">
