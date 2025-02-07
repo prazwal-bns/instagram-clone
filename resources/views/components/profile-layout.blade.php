@@ -14,9 +14,9 @@
 
         {{--profile username --}}
         <div class="col-span-8 ">
-            <h2 class="mx-auto font-bold truncate">
+            <h1 class="mx-auto font-bold truncate">
                 {{$user->username}}
-            </h2>
+            </h1>
         </div>
 
         <span class="flex justify-end col-span-2 ">
@@ -130,10 +130,14 @@
             </div>
 
             {{-- profile user's name --}}
-
-            <h4>
+            <h4 class="text-2xl font-bold">
                 {{$user->name}}
             </h4>
+            <h3>
+                {{$user->bio}}
+            </h3>
+
+
 
 
 
