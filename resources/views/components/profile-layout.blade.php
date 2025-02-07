@@ -33,7 +33,6 @@
 
         </span>
 
-
     </header>
 
 
@@ -42,7 +41,7 @@
 
         {{-- Avatar --}}
         <div class="flex items-center col-span-4">
-            <x-avatar class="w-20 h-20 m-auto lg:h-44 lg:w-44" :src="auth()->user()->photo ? asset(auth()->user()->photo) : null" />
+            <x-avatar class="w-20 h-20 m-auto lg:h-44 lg:w-44" :src="$user->photo ? asset($user->photo) : null" />
 
         </div>
 
@@ -133,6 +132,13 @@
             <h4 class="text-2xl font-bold">
                 {{$user->name}}
             </h4>
+            <p>
+                <a href="{{$user->website_link}}" target="_blank" class="text-blue-500 font-semibold hover:underline hover:font-bold">
+                    {{$user->website}}
+                </a>
+            </p>
+            
+            
             <h3>
                 {{$user->bio}}
             </h3>

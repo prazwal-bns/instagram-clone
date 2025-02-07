@@ -4,7 +4,7 @@
         @foreach ($posts as $post)
         {{-- Create variable to avoid DIY --}}
         @php
-        $cover= $post->media()->first();
+            $cover= $post->media()->first();
         @endphp
 
         <li

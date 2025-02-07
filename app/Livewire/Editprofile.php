@@ -18,15 +18,17 @@ class Editprofile extends Component
     public $bio;
     public $gender;
     public $website;
+    public $website_link;
 
     public function mount()
     {
-        // Initialize properties with the current authenticated user's data
         $this->user = auth()->user();
         $this->name = $this->user->name;
         $this->address = $this->user->address;
         $this->bio = $this->user->bio;
         $this->gender = $this->user->gender;
+        $this->website = $this->user->website;
+        $this->website_link = $this->user->website_link;
     }
 
 
@@ -61,7 +63,7 @@ class Editprofile extends Component
         $this->photo = null;
         session()->flash('message', 'Photo updated successfully!');
 
-        return redirect()->route('profile.home',$this->user->username);
+        return redirect()->route('edit.my-profile');
     }
 
     public function updateProfile()
@@ -71,6 +73,7 @@ class Editprofile extends Component
             'address' => 'nullable|string|max:255',
             'bio' => 'nullable|string|max:150',
             'website' => 'nullable|string|max:150',
+            'website_link' => 'nullable|string|max:150',
             'gender' => 'nullable|in:male,female,other',
         ]);
 
@@ -79,7 +82,8 @@ class Editprofile extends Component
             'address' => $this->address,
             'bio' => $this->bio,
             'gender' => $this->gender,
-            'website' => $this->website
+            'website' => $this->website,
+            'website_link' => $this->website_link
         ]);
 
         session()->flash('message', 'Profile updated successfully!');

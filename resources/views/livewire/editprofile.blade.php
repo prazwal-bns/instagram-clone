@@ -64,7 +64,7 @@
             </div>
 
             <!-- Website Section -->
-            <div class="mb-6">
+            {{-- <div class="mb-6">
                 <label class="block mb-2 font-medium">Website</label>
                 <input
                     type="url"
@@ -73,7 +73,71 @@
                     class="w-full p-3 bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your website URL"
                 >
+            </div> --}}
+
+            <!-- Website Input Field -->
+            <div class="mb-6 relative">
+                <label class="block mb-2 font-medium">Website <span class="text-gray-400 text-sm">optional</span></label>
+
+                <div class="flex items-center space-x-3">
+                    <!-- Website Name -->
+                    <input type="text"
+                        name="website"
+                        wire:model="website"
+                        class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter website name"
+                    >
+
+                    <!-- Link Button -->
+                    <button type="button"
+                        onclick="document.getElementById('website_modal').classList.remove('hidden')"
+                        class="flex items-center px-4 py-2 border rounded-lg text-gray-500 hover:bg-gray-100"
+                    >
+                        🔗 Link
+                    </button>
+
+                    <!-- Delete Button -->
+                    <button type="button"
+                        class="flex items-center px-4 py-2 border rounded-lg text-red-500 hover:bg-red-100"
+                    >
+                        🗑️
+                    </button>
+                </div>
             </div>
+
+            <!-- Modal for Link URL -->
+            <div id="website_modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm hidden">
+                <div class="bg-white p-6 rounded-lg shadow-xl w-96">
+                    <h2 class="text-lg font-semibold mb-3">Link URL</h2>
+
+                    <input type="url"
+                        wire:model="website_link"
+                        class="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter Link"
+                    >
+
+                    <div class="flex justify-between mt-4">
+                        <button type="button"
+                            onclick="document.getElementById('website_modal').classList.add('hidden')"
+                            class="px-4 py-2 border rounded-lg text-gray-500 hover:bg-gray-100"
+                        >
+                            Cancel
+                        </button>
+
+                        <button type="button"
+                            onclick="document.getElementById('website_modal').classList.add('hidden')"
+                            class="px-4 py-2 rounded-lg bg-gradient-to-r from-pink-500 to-red-500 text-white"
+                        >
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            
+            
+            
+            <!-- Email Section -->
 
             <!-- Address Section -->
             <div class="mb-6">
@@ -90,7 +154,7 @@
             <!-- Bio Section -->
             <div class="mb-6">
                 <label class="block mb-2 font-medium">Bio</label>
-                <div class="relative">
+                <div class="">
                     <textarea
                         name="bio"
                         wire:model="bio"
