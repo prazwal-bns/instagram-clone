@@ -4,7 +4,7 @@
         @foreach ($posts as $post)
         {{-- Create variable to avoid DIY --}}
         @php
-            $cover= $post->media()->first();
+        $cover= $post->media()->first();
         @endphp
 
         <li
@@ -12,7 +12,7 @@
              relative  group  shrink-0 snap-center snap-always grid grid-cols-12 gap-4">
 
             <div class="col-span-11 bg-black border ">
-                <x-video :autoplay="true" :controls="true" :cover="false" source="{{$cover->url}}" />
+                <x-my-reels :autoplay="false" :controls="true" :cover="false" source="{{$cover->url}}" />
 
             </div>
 

@@ -27,7 +27,7 @@ class Reels extends Component
 
     public function render()
     {
-        $posts = Post::where('type','reel')->limit(20)->get();
+        $posts = Post::where('type','reel')->latest()->limit(20)->get();
         return view('livewire.reels',['posts'=>$posts]);
     }
 }
