@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Editprofile;
 use App\Livewire\Explore;
 use App\Livewire\Home;
 use App\Livewire\Profile\Home as ProfileHome;
@@ -20,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/', Home::class)->name('home');
     Route::get('/explore', Explore::class)->name('explore');
     Route::get('/reels', LivewireReels::class)->name('reels');
+
+    Route::get('/edit/my-profile', Editprofile::class)->name('edit.my-profile');
 
     Route::get('/profile/{user}', ProfileHome::class)->name('profile.home');
     Route::get('/profile/{user}/reels', Reels::class)->name('profile.reels');

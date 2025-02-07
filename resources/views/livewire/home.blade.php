@@ -98,8 +98,10 @@ class="w-full h-full">
                 <a href="{{ route('profile.home', auth()->user()->username) }}">
                     <div class="flex items-center gap-2">
 
-                        <x-avatar class="w-12 h-12" src="{{ auth()->user()->photo }}" />
-    
+                        <x-avatar class="w-12 h-12"
+                         :src="auth()->user()->photo ? asset(auth()->user()->photo) : null"
+                          />
+
                         <h4 class="font-medium">{{ auth()->user()->name }}</h4>
                     </div>
                 </a>
@@ -110,7 +112,7 @@ class="w-full h-full">
                             <li class="flex items-center gap-3">
 
                                 <a href="{{ route('profile.home', $user->username) }}" class="font-semibold ">
-                                    <x-avatar class="w-12 h-12" 
+                                    <x-avatar class="w-12 h-12"
                                         src="{{ $user->photo ? $user->photo : 'https://randomuser.me/api/portraits/men/' . rand(0, 99) . '.jpg' }}" />
                                 </a>
 

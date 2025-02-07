@@ -36,12 +36,6 @@
                         </svg>
                     @endif
 
-
-
-
-
-
-
                 </span>
 
                 <h4 x-cloak x-show="!(shrink || drawer)" class="text-lg {{ (request()->routeIs('dashboard') || request()->is('/')) ? 'font-extrabold' : 'font-medium' }}">Home</h4>
@@ -87,7 +81,7 @@
 
 
                 </span>
-                <h4 x-cloak x-show="!(shrink || drawer)" class="text-lg {{ request()->routeIs('explore') ? 'font-bold' : 'font-medium' }}">Explore</h4>
+                <h4 x-cloak x-show="!(shrink || drawer)" class="text-lg {{ request()->routeIs('explore') ? 'font-extrabold' : 'font-medium' }}">Explore</h4>
             </a></li>
 
 
@@ -95,10 +89,7 @@
 
                 <span>
                     @if (request()->routeIs('reels'))
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" width="24" height="24" fill="currentColor" id="instagram-reel">
-                            <path fill="currentColor" fill-rule="evenodd" d="M1 6.5A5.5 5.5 0 0 1 6.5 1h11A5.5 5.5 0 0 1 23 6.5v11a5.5 5.5 0 0 1-5.5 5.5h-11A5.5 5.5 0 0 1 1 17.5v-11ZM6.5 3A3.5 3.5 0 0 0 3 6.5v11A3.5 3.5 0 0 0 6.5 21h11a3.5 3.5 0 0 0 3.5-3.5v-11A3.5 3.5 0 0 0 17.5 3h-11Z" clip-rule="evenodd"></path>
-                            <path fill="currentColor" fill-rule="evenodd" d="M9.038 10.113a1 1 0 0 1 1.035.068l5 3.5a1 1 0 0 1 0 1.638l-5 3.5A1 1 0 0 1 8.5 18v-7a1 1 0 0 1 .538-.887zm1.462 2.808v3.158l2.256-1.579-2.256-1.58zM1 8a1 1 0 0 1 1-1h20a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1z" clip-rule="evenodd"></path>
-                        </svg>
+                        <svg aria-label="Reels" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Reels</title><path d="m12.823 1 2.974 5.002h-5.58l-2.65-4.971c.206-.013.419-.022.642-.027L8.55 1Zm2.327 0h.298c3.06 0 4.468.754 5.64 1.887a6.007 6.007 0 0 1 1.596 2.82l.07.295h-4.629L15.15 1Zm-9.667.377L7.95 6.002H1.244a6.01 6.01 0 0 1 3.942-4.53Zm9.735 12.834-4.545-2.624a.909.909 0 0 0-1.356.668l-.008.12v5.248a.91.91 0 0 0 1.255.84l.109-.053 4.545-2.624a.909.909 0 0 0 .1-1.507l-.1-.068-4.545-2.624Zm-14.2-6.209h21.964l.015.36.003.189v6.899c0 3.061-.755 4.469-1.888 5.64-1.151 1.114-2.5 1.856-5.33 1.909l-.334.003H8.551c-3.06 0-4.467-.755-5.64-1.889-1.114-1.15-1.854-2.498-1.908-5.33L1 15.45V8.551l.003-.189Z" fill-rule="evenodd"></path></svg>
                     @else
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" width="24" height="24" fill="currentColor" id="instagram-reel">
                             <path fill="currentColor" fill-rule="evenodd" d="M1 6.5A5.5 5.5 0 0 1 6.5 1h11A5.5 5.5 0 0 1 23 6.5v11a5.5 5.5 0 0 1-5.5 5.5h-11A5.5 5.5 0 0 1 1 17.5v-11ZM6.5 3A3.5 3.5 0 0 0 3 6.5v11A3.5 3.5 0 0 0 6.5 21h11a3.5 3.5 0 0 0 3.5-3.5v-11A3.5 3.5 0 0 0 17.5 3h-11Z" clip-rule="evenodd"></path>
@@ -107,7 +98,7 @@
                     @endif
                 </span>
 
-                <h4 x-cloak x-show="!(shrink || drawer)" class="text-lg {{ request()->routeIs('reels') ? 'font-bold' : 'font-medium' }}">Reel</h4>
+                <h4 x-cloak x-show="!(shrink || drawer)" class="text-lg {{ request()->routeIs('reels') ? 'font-extrabold' : 'font-medium' }}">Reel</h4>
             </a></li>
 
 
@@ -169,8 +160,8 @@
 
             <li>
                 <a wire:navigate href="{{ route('profile.home', auth()->user()->username) }}" class="flex items-center gap-5">
-                    <x-avatar class="w-7 h-7 shrink-0" src="{{ asset(auth()->user()->photo) }}" />
-                    <h4 x-cloak x-show="!(shrink || drawer)" class="text-lg {{ request()->routeIs('profile.home')  ? 'font-extrabold' : 'font-medium' }}">Profile</h4>
+                    <x-avatar class="w-7 h-7 shrink-0" :src="auth()->user()->photo ? asset(auth()->user()->photo) : null"/>
+                    <h4 x-cloak x-show="!(shrink || drawer)" class="text-lg {{ request()->routeIs('profile.home') || request()->routeIs('edit.my-profile')  ? 'font-extrabold' : 'font-medium' }}">Profile</h4>
                 </a>
             </li>
 

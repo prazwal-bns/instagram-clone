@@ -42,7 +42,7 @@
 
         {{-- Avatar --}}
         <div class="flex items-center col-span-4">
-            <x-avatar class="w-20 h-20 m-auto lg:h-44 lg:w-44" src="{{ asset($user->photo) }}" />
+            <x-avatar class="w-20 h-20 m-auto lg:h-44 lg:w-44" :src="auth()->user()->photo ? asset(auth()->user()->photo) : null" />
 
         </div>
 
@@ -64,7 +64,7 @@
                 <div class="grid grid-cols-2 col-span-12 gap-3 lg:col-span-6 ">
 
                     {{-- Send message button --}}
-                    <a href="#" type="button"
+                    <a href="{{ route('edit.my-profile') }}" type="button"
                         class=" inline-flex justify-center font-bold items-center  rounded-lg  text-sm p-1.5 px-2 transition  bg-gray-200 hover:bg-slate-100 ">
                         Edit profile
                     </a>
@@ -145,28 +145,29 @@
 
     {{-- Tabs --}}
     <section class="border-t">
-        <ul class="grid max-w-sm grid-cols-3 gap-4 pb-3 mx-auto ">
+        <ul class="flex justify-between max-w-sm mx-auto text-center">
             {{-- Posts --}}
-            <li class="flex items-center gap-2 py-2 cursor-pointer {{ request()->routeIs('profile.home') ? 'border-t border-black' : '' }}">
-                <a wire:navigate class="flex items-center gap-2 py-2 border-black cursor-pointer" href="{{ route('profile.home',$user->username) }}">
-                {{-- border icon from bootsrap icons --}}
-                <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-border-all lg:w-5 lg:h-5" viewBox="0 0 16 16">
-                        <path
-                            d="M0 0h16v16H0V0zm1 1v6.5h6.5V1H1zm7.5 0v6.5H15V1H8.5zM15 8.5H8.5V15H15V8.5zM7.5 15V8.5H1V15h6.5z" />
-                    </svg>
-                </span>
-
-                <h4 class="font-bold capitalize">Posts</h4>
+            <li class="relative flex flex-col items-center justify-center flex-1 py-2 cursor-pointer">
+                <a wire:navigate class="flex flex-col items-center justify-center gap-1 py-2"
+                    href="{{ route('profile.home', $user->username) }}">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-border-all lg:w-5 lg:h-5" viewBox="0 0 16 16">
+                            <path
+                                d="M0 0h16v16H0V0zm1 1v6.5h6.5V1H1zm7.5 0v6.5H15V1H8.5zM15 8.5H8.5V15H15V8.5zM7.5 15V8.5H1V15h6.5z" />
+                        </svg>
+                    </span>
+                    <h4 class="font-bold capitalize">Posts</h4>
                 </a>
-
+                @if (request()->routeIs('profile.home'))
+                    <div class="absolute bottom-0 w-full border-t-2 border-black"></div>
+                @endif
             </li>
 
             {{-- Reels --}}
-            <li class="flex items-center gap-2 py-2 cursor-pointer {{ request()->routeIs('profile.reels') ? 'border-t border-black' : '' }}">
-                {{-- border icon from bootsrap icons --}}
-                <a wire:navigate class="flex items-center gap-2 py-2 cursor-pointer" href="{{ route('profile.reels',$user->username) }}">
+            <li class="relative flex flex-col items-center justify-center flex-1 py-2 cursor-pointer">
+                <a wire:navigate class="flex flex-col items-center justify-center gap-1 py-2"
+                    href="{{ route('profile.reels', $user->username) }}">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" id="instagram-reel">
                             <path fill="currentColor" fill-rule="evenodd"
@@ -182,33 +183,35 @@
                     </span>
                     <h4 class="font-bold capitalize">Reels</h4>
                 </a>
-
+                @if (request()->routeIs('profile.reels'))
+                    <div class="absolute bottom-0 w-full border-t-2 border-black"></div>
+                @endif
             </li>
 
             @auth
-                @if (auth()->user()->id==$user->id)
-                {{-- Saved --}}
-                <li class="flex items-center gap-2 py-2 cursor-pointer {{ request()->routeIs('profile.saved') ? 'border-t border-black' : '' }}">
-                    <a wire:navigate class="flex items-center gap-2 py-2 cursor-pointer" href="{{ route('profile.saved',$user->username) }}">
-                        {{-- Tag icon from bootsrap icons --}}
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-bookmark lg:w-5 lg:h-5" viewBox="0 0 16 16">
-                                <path
-                                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                            </svg>
-                        </span>
-
-                        <h4 class="font-bold capitalize">Saved</h4>
-                    </a>
-
-                </li>
+                @if (auth()->user()->id == $user->id)
+                    {{-- Saved --}}
+                    <li class="relative flex flex-col items-center justify-center flex-1 py-2 cursor-pointer">
+                        <a wire:navigate class="flex flex-col items-center justify-center gap-1 py-2"
+                            href="{{ route('profile.saved', $user->username) }}">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-bookmark lg:w-5 lg:h-5" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                                </svg>
+                            </span>
+                            <h4 class="font-bold capitalize">Saved</h4>
+                        </a>
+                        @if (request()->routeIs('profile.saved'))
+                            <div class="absolute bottom-0 w-full border-t-2 border-black"></div>
+                        @endif
+                    </li>
                 @endif
             @endauth
         </ul>
-
-
     </section>
+
 
 
     <main class="my-7">
