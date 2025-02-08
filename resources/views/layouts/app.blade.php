@@ -101,9 +101,11 @@
                     {{ $slot }}
                 </div>
             </div>
-            <div class="fixed inset-0 drawer-side"> <!-- Fixed positioning with z-index -->
+
+            <div class="fixed inset-0 z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
                 <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-                @include('layouts.sidebar')
+                {{-- @include('layouts.sidebar') --}}
+                <livewire:components.sidebar />
             </div>
         </div>
 
