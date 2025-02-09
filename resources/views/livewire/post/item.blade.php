@@ -229,19 +229,21 @@
         @endauth
 
         {{-- Leave comment --}}
-        <form wire:key="{{ time() }}" class="grid items-center w-full grid-cols-12 " x-data="{ body:@entangle('body') }"
+        <form wire:key="{{ time() }}" class="grid items-center w-full grid-cols-12 " x-data="{ inputText: '' }"
             @submit.prevent="$wire.addComment()">
 
             @csrf
             <input placeholder="Leave a comment" type="text"
                 class="w-full col-span-10 px-0 text-sm border-0 rounded-lg outline-none placeholder:text-sm focus:outline-none hover:ring-0 focus:ring-0"
-                x-model="body">
+                x-model="inputText">
 
-            <div class="flex justify-end col-span-1 ml-auto text-right ">
-                <button type="submit" x-cloak class="flex justify-end text-sm font-semibold text-blue-500"
-                    x-show="body.length > 0">Post</button>
-
+            <div>
+                <div class="flex justify-end col-span-1 ml-auto text-right">
+                    <button type="submit" x-cloak class="flex justify-end text-sm font-semibold text-blue-500"
+                        x-show="inputText.length > 0">Post</button>
+                </div>
             </div>
+                
 
             <span class="col-span-1 ml-auto ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

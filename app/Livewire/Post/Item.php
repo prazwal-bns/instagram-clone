@@ -10,8 +10,6 @@ class Item extends Component
 {
     public Post $post;
 
-    public $body;
-
     public function render()
     {
         return view('livewire.post.item');
