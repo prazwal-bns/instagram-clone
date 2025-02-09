@@ -5,7 +5,7 @@
     'autoplay' => false
 ])
 <div
-    x-data="{playing: false, muted: false}"
+    x-data="{playing: false, muted: false, wasPlaying: false}"
     class="relative w-full h-full m-auto"
     x-init="
         let observer = new IntersectionObserver((entries) => {
@@ -19,15 +19,26 @@
             });
         }, { threshold: 0.5 });
         observer.observe($refs.player);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                wasPlaying = !$refs.player.paused;
+                $refs.player.pause();
+            } else if (wasPlaying) {
+                $refs.player.play();
+            }
+        });
     "
 >
     <video
         x-ref="player"
         @play="playing = true"
         @pause="playing = false"
+        @ended="$refs.player.play()"
         class="h-full max-h-[800px] m-auto w-full {{ $cover == true ? 'object-cover' : '' }}"
         @if($autoplay) autoplay @endif
         preload="metadata"
+        loop
     >
         <source src="{{ $source }}" type="video/mp4">
         Your browser doesn't support HTML5 video.
@@ -90,4 +101,3 @@
         </div>
     @endif
 </div>
-
