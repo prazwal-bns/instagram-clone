@@ -236,7 +236,7 @@
 
           {{-- Search --}}
         <template x-if="showSearch">
-            <div x-cloak class="h-full w-120">
+            <div x-cloak class="h-full mt-6 w-120">
 
                 <header class="sticky top-0 z-10 w-full py-2 bg-white">
 

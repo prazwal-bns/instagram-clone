@@ -1,4 +1,4 @@
-<div class="w-full p-3">
+<div class="w-full p-3 mt-6">
     {{-- Nothing in the world is as soft and yielding as water. --}}
 
     <h3 class="text-4xl font-bold">Notifications</h3>
@@ -11,7 +11,7 @@
             <div class="grid w-full grid-cols-12 gap-2">
 
                 <a href="#" class="col-span-2">
-                    <x-avatar wire:ignore src="https://source.unsplash.com/500x500?face-{{rand(0,10)}}"
+                    <x-avatar wire:ignore src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg"
                         class="w-10 h-10" />
                 </a>
 
@@ -32,7 +32,7 @@
             {{-- PostLiked --}}
             <div class="grid w-full grid-cols-12 gap-2 ">
                 <a href="#" class="col-span-2">
-                    <x-avatar wire:ignore src="https://source.unsplash.com/500x500?face-{{rand(0,10)}}"
+                    <x-avatar  src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg"
                         class="w-10 h-10" />
                 </a>
 
@@ -48,7 +48,7 @@
 
 
                 <a href="#" class="col-span-3 ml-auto">
-                    <img src="https://source.unsplash.com/500x500?nature-{{rand(0,10)}}" alt="image" class="object-cover w-10 h-11">
+                    <img src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" alt="image" class="object-cover w-10 h-11">
                 </a>
 
             </div>
@@ -57,7 +57,7 @@
             {{-- NewComment--}}
             <div class="grid w-full grid-cols-12 gap-2 ">
                 <a href="#" class="col-span-2">
-                    <x-avatar wire:ignore src="https://source.unsplash.com/500x500?face-{{rand(0,10)}}"
+                    <x-avatar wire:ignore src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg"
                         class="w-10 h-10" />
                 </a>
 
@@ -73,7 +73,7 @@
 
 
                 <a class="col-span-3 ml-auto">
-                    <img src="https://source.unsplash.com/500x500?nature-{{rand(0,10)}}" alt="image" class="object-cover w-10 h-11">
+                    <img src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" alt="image" class="object-cover w-10 h-11">
                 </a>
 
             </div>
