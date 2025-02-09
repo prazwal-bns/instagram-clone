@@ -34,7 +34,9 @@ class Item extends Component
         $this->reset('body');
 
         // send notification if post is commented by someone
-        $this->post->user->notify(new NewCommentNotification(auth()->user(),$comment));
+        if($this->post->user_id != auth()->user()->id){
+            $this->post->user->notify(new NewCommentNotification(auth()->user(),$comment));
+        }
     }
 
     public function likePost(){
@@ -43,7 +45,9 @@ class Item extends Component
 
         // send notification if post is liked
         if($this->post->isLikedBy(auth()->user())){
-            $this->post->user->notify(new PostLikedNotification(auth()->user(),$this->post));
+            if($this->post->user_id != auth()->user()->id){
+                $this->post->user->notify(new PostLikedNotification(auth()->user(),$this->post));
+            }
         }
     }
 
@@ -53,7 +57,9 @@ class Item extends Component
 
         // send notification if post is liked
         if($this->post->isLikedBy(auth()->user())){
-            $this->post->user->notify(new PostLikedNotification(auth()->user(),$this->post));
+            if($this->post->user_id != auth()->user()->id){
+                $this->post->user->notify(new PostLikedNotification(auth()->user(),$this->post));
+            }
         }
     }
 

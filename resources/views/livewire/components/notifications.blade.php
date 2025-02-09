@@ -1,82 +1,151 @@
-<div class="w-full p-3 mt-6">
+<div
+    x-init="
+    Echo.private('users.{{ auth()->user()->id }}')
+    .notification((notification) => {
+        // alert('reached');
+        // $wire.$refresh();
+        @this.$refresh();
+    });
+    "
+    class="w-full p-3 mt-6">
     {{-- Nothing in the world is as soft and yielding as water. --}}
 
     <h3 class="text-4xl font-bold">Notifications</h3>
 
 
     <main class="w-full my-7">
-
         <div class="space-y-5">
-            {{-- NewFollower --}}
-            <div class="grid w-full grid-cols-12 gap-2">
+            @foreach ($notifications as $notification)
+                @switch($notification->type)
+                @case('App\Notifications\NewFollowerNotification')
 
-                <a href="#" class="col-span-2">
-                    <x-avatar wire:ignore src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg"
-                        class="w-10 h-10" />
-                </a>
+                @php
+                    $user = App\Models\User::find($notification->data['user_id']);
+                @endphp
 
-                <div class="col-span-7 font-medium">
-                    <a href="#"> <strong>{{fake()->name}}</strong> </a>
+                {{-- NewFollower --}}
+                <div class="grid w-full grid-cols-12 gap-2">
 
-                     started following you
-                    <span class="text-gray-400">2d</span>
-                </div>
+                    <a href="{{ route('profile.home', $user->username) }}" class="col-span-2">
+                        <x-avatar wire:ignore src="{{ asset($user->photo) }}"
+                            class="w-10 h-10" />
+                    </a>
 
-                <div class="col-span-3">
-                     {{-- <button class="font-bold text-sm bg-blue-500 text-white px-3 py-1.5 rounded-lg">Follow</button> --}}
-                     <button class="font-bold text-sm bg-gray-100 text-black/90 px-3 py-1.5 rounded-lg">Following</button>
-                </div>
+                    <div class="col-span-7 font-medium">
+                        <a href="{{ route('profile.home', $user->username) }}"> <strong>{{$user->name}}</strong> </a>
 
-            </div>
+                        started following you
+                        <span class="text-gray-400">{{ $notification->created_at->shortAbsoluteDiffForHumans() }}</span>
+                    </div>
 
-            {{-- PostLiked --}}
-            <div class="grid w-full grid-cols-12 gap-2 ">
-                <a href="#" class="col-span-2">
-                    <x-avatar  src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg"
-                        class="w-10 h-10" />
-                </a>
+                    <div class="col-span-3">
+                        @if (auth()->user()->isFollowing($user))
+                            <button wire:click="toggleFollow({{ $user->id}})" class="font-bold text-sm bg-gray-100 text-black/90 px-3 py-1.5 rounded-lg">Following</button>
+                        @else
+                            <button wire:click="toggleFollow({{ $user->id}})" class="font-bold text-sm bg-blue-500 text-white px-3 py-1.5 rounded-lg">Follow</button>
+                        @endif
 
-                <div  class="col-span-7 font-medium">
-                     <a href="#"> <strong>{{fake()->name}}</strong> </a>
-
-                     <a href="#">
-                        Liked your post 2d
-                        <span class="text-gray-400">2d</span>
-                     </a>
+                    </div>
 
                 </div>
+                @break
+
+                @case('App\Notifications\PostLikedNotification')
+                @php
+                    $user = App\Models\User::find($notification->data['user_id']);
+                    $post = App\Models\Post::find($notification->data['post_id']);
+                @endphp
+                {{-- PostLiked --}}
+                <div class="grid w-full grid-cols-12 gap-2 ">
+                    <a href="{{ route('profile.home', $user->username) }}" class="col-span-2">
+                        <x-avatar src="{{ asset($user->photo) }}" class="w-10 h-10" />
+                    </a>
+
+                    <div class="col-span-7 font-medium">
+                        <a href="{{ route('profile.home', $user->username) }}"> <strong>{{$user->name}}</strong> </a>
+
+                        <a href="{{ route('post', $post->id) }}">
+                            Liked your post
+                            <span class="text-gray-400">{{ $notification->created_at->shortAbsoluteDiffForHumans() }}</span>
+                        </a>
+
+                    </div>
 
 
-                <a href="#" class="col-span-3 ml-auto">
-                    <img src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" alt="image" class="object-cover w-10 h-11">
-                </a>
+                    <a href="{{ route('post', $post->id) }}" class="col-span-3 ml-auto">
+                        @php
+                            $cover = $post->media->first();
+                        @endphp
+                            @switch($cover->mime)
+                            @case('video')
 
-            </div>
+                            <div class="w-10 h-11 ">
+                                <video src="{{ $cover->url }}" alt="Video cover" class="object-cover w-10 h-11">
+                            </div>
 
+                            @break
+                            @case('image')
+                                <img src="{{$cover->url}}" alt="image" class="object-cover w-10 h-11">
+                            @break
+                            @default
 
-            {{-- NewComment--}}
-            <div class="grid w-full grid-cols-12 gap-2 ">
-                <a href="#" class="col-span-2">
-                    <x-avatar wire:ignore src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg"
-                        class="w-10 h-10" />
-                </a>
+                            @endswitch
+                    </a>
 
-                <div  class="col-span-7 font-medium">
-                    <a href="#"> <strong>{{fake()->name}}</strong> </a>
-
-                     <a href="#">
-                        commented:
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur iure ab, ut nulla et ducimus iste dolor quidem
-                        <span class="text-gray-400">2d</span>
-                     </a>
                 </div>
 
+                @break
 
-                <a class="col-span-3 ml-auto">
-                    <img src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" alt="image" class="object-cover w-10 h-11">
-                </a>
+                @case('App\Notifications\NewCommentNotification')
+                @php
+                    $user = App\Models\User::find($notification->data['user_id']);
+                    $comment = App\Models\Comment::find($notification->data['comment_id']);
+                @endphp
+                {{-- NewComment--}}
+                <div class="grid w-full grid-cols-12 gap-2 ">
+                    <a href="{{ route('profile.home', $user->username) }}" class="col-span-2">
+                        <x-avatar wire:ignore src="{{ asset($user->photo) }}"
+                            class="w-10 h-10" />
+                    </a>
 
-            </div>
+                    <div class="col-span-7 font-medium">
+                        <a href="{{ route('profile.home', $user->username) }}"> <strong>{{$user->name}}</strong> </a>
+
+                        <a href="{{ route('post', $comment->commentable->id) }}">
+                            commented:
+                            {{ Str::limit($comment->body, 10) }}
+                            <span class="text-gray-400">{{ $notification->created_at->shortAbsoluteDiffForHumans() }}</span>
+                        </a>
+                    </div>
+
+
+                    <a href="{{route('post',$comment->commentable->id)}}" class="col-span-3 ml-auto">
+                        @php
+                            $cover = $comment->commentable->media->first();
+                        @endphp
+                            @switch($cover->mime)
+                            @case('video')
+
+                            <div class="w-10 h-11 ">
+                                <x-video :controls="false" source="{{$cover->url}}" />
+                            </div>
+
+                            @break
+                            @case('image')
+                                <img src="{{$cover->url}}" alt="image" class="object-cover w-10 h-11">
+                            @break
+                            @default
+
+                            @endswitch
+                    </a>
+
+                </div>
+                @break
+
+                @default
+
+                @endswitch
+            @endforeach
         </div>
 
     </main>
