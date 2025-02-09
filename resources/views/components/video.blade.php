@@ -5,30 +5,44 @@
     'autoplay' => false
 ])
 <div
-    x-data="{playing: false, muted: false, wasPlaying: false}"
-    class="relative w-full h-full m-auto"
-    x-init="
-        let observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (!$refs.player.paused) return;
-                    $refs.player.play();
-                } else {
-                    $refs.player.pause();
+    x-data="{
+        playing: false,
+        muted: false,
+        wasPlaying: false,
+        init() {
+            // Track the currently playing video
+            if (!window.activeVideo) {
+                window.activeVideo = null;
+            }
+
+            let observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (window.activeVideo && window.activeVideo !== this.$refs.player) {
+                            window.activeVideo.pause(); // Pause the other video
+                        }
+                        window.activeVideo = this.$refs.player; // Set this video as active
+                        if (!this.$refs.player.paused) return;
+                        this.$refs.player.play();
+                    } else {
+                        this.$refs.player.pause();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(this.$refs.player);
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    this.wasPlaying = !this.$refs.player.paused;
+                    this.$refs.player.pause();
+                } else if (this.wasPlaying) {
+                    this.$refs.player.play();
                 }
             });
-        }, { threshold: 0.5 });
-        observer.observe($refs.player);
-
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                wasPlaying = !$refs.player.paused;
-                $refs.player.pause();
-            } else if (wasPlaying) {
-                $refs.player.play();
-            }
-        });
-    "
+        }
+    }"
+    class="relative w-full h-full m-auto"
 >
     <video
         x-ref="player"
