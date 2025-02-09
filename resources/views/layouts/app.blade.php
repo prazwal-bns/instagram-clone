@@ -102,13 +102,14 @@
                 </div>
             </div>
 
-            <div class="fixed inset-0 z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
-                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-                {{-- @include('layouts.sidebar') --}}
-                <livewire:components.sidebar />
+            <div class="overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
+                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay">
+                    <livewire:components.sidebar />
+                </label>
+
             </div>
         </div>
 
-    @livewire('wire-elements-modal')
+        @livewire('wire-elements-modal')
     </body>
 </html>

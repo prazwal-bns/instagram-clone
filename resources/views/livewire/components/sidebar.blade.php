@@ -262,7 +262,7 @@
 
                                 <div class="flex flex-col">
                                     <span class="text-sm font-bold">{{$user->username}}</span>
-                                    <span class="text-xs font-normal truncate">{{fake()->sentence()}}</span>
+                                    <span class="text-xs font-normal truncate">{{ \Illuminate\Support\Str::words($user->bio, 10, '...') }}</span>
 
                                 </div>
                             </a>
