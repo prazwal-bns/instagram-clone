@@ -12,7 +12,7 @@
              relative  group  shrink-0 snap-center snap-always grid grid-cols-12 gap-4">
 
             <div class="col-span-11 bg-black border ">
-                <x-my-reels :autoplay="false" :controls="true" :cover="false" source="{{$cover->url}}" />
+                <x-video :autoplay="false" :controls="true" :cover="false" source="{{$cover->url}}" />
 
             </div>
 
