@@ -33,7 +33,8 @@ class User extends Authenticatable
         'bio',
         'address',
         'website',
-        'website_link'
+        'website_link',
+        'provider_id'
     ];
 
     /**

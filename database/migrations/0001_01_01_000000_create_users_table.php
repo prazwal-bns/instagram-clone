@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('photo')->default('images/user.jpg')->nullable();
             $table->string('address')->nullable();
+            $table->string('provider_id')->nullable();
             $table->string('website')->nullable();
             $table->string('website_link')->nullable();
             $table->text('bio')->nullable();
