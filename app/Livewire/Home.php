@@ -31,11 +31,18 @@ class Home extends Component
     #[On('post-created')]
     public function postCreated($id)
     {
-
         $post = Post::find($id);
-
         $this->posts = $this->posts->prepend($post);
     }
+
+    #[On('post-updated')]
+    public function postUpdated($id)
+    {
+        $post = Post::find($id);
+        $this->posts = $this->posts->prepend($post);
+        $this->redirect(route('home'));
+    }
+
 
 
     /*

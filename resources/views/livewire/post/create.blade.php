@@ -13,7 +13,7 @@
             </div>
 
 
-            <button @disabled(count($media)==0) wire:loading.attr="diabled"  wire:click="submit" class="font-bold text-blue-500 disabled:cursor-not-allowed disabled:opacity-25">
+            <button @disabled(count($media)==0) wire:loading.attr="disabled"  wire:click="submit" class="font-bold text-blue-500 disabled:cursor-not-allowed disabled:opacity-25">
                 Share
             </button>
 
@@ -26,7 +26,7 @@
 
     <main class="grid w-full h-full grid-cols-12 gap-3 overflow-hidden">
 
-        {{-- Mefia --}}
+        {{-- Media --}}
         <aside class="items-center w-full m-auto overflow-scroll lg:col-span-7">
 
             @if (count($media) == 0)
