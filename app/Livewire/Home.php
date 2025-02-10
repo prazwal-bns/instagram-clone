@@ -35,15 +35,6 @@ class Home extends Component
         $this->posts = $this->posts->prepend($post);
     }
 
-    #[On('post-updated')]
-    public function postUpdated($id)
-    {
-        $post = Post::find($id);
-        $this->posts = $this->posts->prepend($post);
-        $this->redirect(route('home'));
-    }
-
-
 
     /*
      * --------------------------

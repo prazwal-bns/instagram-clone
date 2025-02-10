@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Notifications\NewCommentNotification;
 use App\Notifications\PostLikedNotification;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Item extends Component
@@ -13,6 +14,11 @@ class Item extends Component
     public Post $post;
 
     public $body;
+
+    #[On('post-updated')]
+    public function update(Post $post){
+        $this->post = $post;
+    }
 
     public function render()
     {
