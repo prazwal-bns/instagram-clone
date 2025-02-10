@@ -17,8 +17,9 @@
             </div>
 
             <div class="mb-4">
-                <button class="w-full py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">  Log in with Facebook
-                </button>
+                <a href="{{ route('socialite.redirect', 'facebook') }}" class="block w-full py-2 font-bold text-center text-white bg-blue-500 rounded hover:bg-blue-700">
+                    Log in with Facebook
+                </a>
             </div>
 
             <div class="relative flex items-center justify-center w-full mb-4">

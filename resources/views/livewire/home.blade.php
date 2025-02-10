@@ -4,10 +4,7 @@ x-data="{
   canLoadMore:@entangle('canLoadMore')
 
 }"
-
-
 @scroll.window.trottle="
-
   scrollTop= window.scrollY ||window.scrollTop;
   divHeight= window.innerHeight||document.documentElement.clientHeight;
   scrollHeight = document.documentElement.scrollHeight;
@@ -21,10 +18,7 @@ x-data="{
 
     @this.loadMore();
   }
-
-
 "
-
 class="w-full h-full">
 
     {{--Header----}}
@@ -65,8 +59,7 @@ class="w-full h-full">
     {{-- <main class="grid gap-8 lg:grid-cols-12 md:mt-10"> --}}
         <main class="grid items-start gap-8 lg:grid-cols-12 md:mt-10">
 
-            <aside class="overflow-hidden lg:col-span-8">
-
+            <aside class="overflow-hidden lg:col-span-8" x-data="{ isExpanded: true }">
                 {{-- Stories --}}
                 <section>
                     <ul wire:ignore class="flex items-center w-full gap-3 px-16 overflow-x-auto scrollbar-hide">
@@ -78,7 +71,6 @@ class="w-full h-full">
                         @endfor
                     </ul>
                 </section>
-
 
                 {{-- Posts --}}
                 <section class="mt-10 space-y-8">
@@ -92,9 +84,9 @@ class="w-full h-full">
                 </section>
             </aside>
 
-
             {{-- Suggestions --}}
             <aside class="hidden p-4 lg:col-span-4 lg:block">
+
                 <a href="{{ route('profile.home', auth()->user()->username) }}">
                     <div class="flex items-center gap-2">
 
@@ -138,9 +130,9 @@ class="w-full h-full">
                         @endforeach
                     </ul>
                 </section>
+
                 {{-- App links --}}
                 <section class="mt-5">
-
                     <ol class="flex flex-wrap gap-2">
                         <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">About</a></li>
                         <li class="text-xs font-medium text-gray-800/90"><a href="#" class="hover:underline">Help</a></li>
@@ -158,12 +150,20 @@ class="w-full h-full">
                                 Verified</a></li>
                     </ol>
 
-
                     <h3 class="mt-6 text-sm text-gray-800/90">© 2025 Instagram from Meta</h3>
-
                 </section>
+
+                {{-- Toggle Button --}}
+                {{-- <button @click="isExpanded = !isExpanded" class="absolute text-gray-600 top-4 right-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button> --}}
 
             </aside>
         </main>
+
 
 </div>

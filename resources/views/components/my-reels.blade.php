@@ -5,51 +5,60 @@
     'autoplay' => false
 ])
 
-<div x-data="{ playing: false, muted: true }"
+<div x-data="{ playing: false, muted: true, visible: false }"
     class="relative w-full h-full m-auto"
     x-init="
         const video = $refs.player;
 
-        // Function to pause all other videos
-        const pauseAllVideos = () => {
+        // Function to pause all OTHER videos (not the current one)
+        const pauseOtherVideos = () => {
             document.querySelectorAll('video').forEach(v => {
-                v.pause();
+                if (v !== video) { // Check if it's not the current video
+                    v.pause();
+                }
             });
         };
-        // Function to handle visibility change
+
+        // Visibility Change Handler
         const handleVisibility = () => {
             if (document.hidden) {
-                pauseAllVideos();
-            } else {
-                pauseAllVideos();
-                let rect = video.getBoundingClientRect();
-                if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-                    video.play();
-                }
+                video.pause(); // Only pause the current video
+                visible = false;
+            } else if (visible) { // Only play if it was previously visible
+                video.play();
             }
         };
 
-
-        // Listen for tab visibility change
         document.addEventListener('visibilitychange', handleVisibility);
 
-        // Intersection Observer for play/pause logic
-        new IntersectionObserver((entries) => {
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                visible = entry.isIntersecting; // Update the visible status
                 if (entry.isIntersecting) {
-                    pauseAllVideos();
+                    pauseOtherVideos(); // Pause other videos
                     video.play();
                 } else {
                     video.pause();
                 }
             });
-        }, { threshold: 0.5 }).observe(video);
+        }, { threshold: 0 }); // Start playing as soon as it's visible
+
+        observer.observe(video);
+
+        // Cleanup on component destroy (important!)
+        $watch($el, (el) => {
+            if (!el) { // Component is being destroyed
+                observer.disconnect();
+                document.removeEventListener('visibilitychange', handleVisibility);
+            }
+        });
     ">
 
-    <video x-ref="player" @play="playing=true" @pause="playing=false" class="h-full max-h-[800px] m-auto w-full {{ $cover==true? 'object-cover' : '' }}"
-    @if($autoplay) autoplay @endif>
+    <video x-ref="player" @play="playing=true" @pause="playing=false" class="h-full max-h-[800px] m-auto w-full {{ $cover ? 'object-cover' : '' }}"
+    @if($autoplay) autoplay @endif muted> {{-- Added muted attribute here to avoid initial sound --}}
         <source src="{{ $source }}" type="video/mp4">
-            your browser doesn't support html5
+            Your browser does not support HTML5 video.
     </video>
 
 @if ($controls==true)

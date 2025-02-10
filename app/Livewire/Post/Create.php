@@ -71,14 +71,9 @@ class Create extends ModalComponent
         $this->reset();
         $this->dispatch('close');
 
-        #dispatch to listen livewire component Home 
-        #reference livewire docs 
+        #dispatch to listen livewire component Home
+        #reference livewire docs
         $this->dispatch('post-created',$post->id);
-
-
-        #add this 
-        #In next video Get banner from pines-UI and add it to the layout
-        return   $this->dispatch('created');
 
     }
 
@@ -94,21 +89,21 @@ class Create extends ModalComponent
             return 'image';
         }
 
-        
+
     }
 
 
     private function getPostType($media) :string {
-        
+
         if (count($this->media)===1 && str()->contains($this->media[0]->getMimeType(), 'video')) {
             return 'reel';
         } else {
 
             return 'post';
         }
-        
+
     }
-    
+
 
     public static function modalMaxWidth(): string
     {

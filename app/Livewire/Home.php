@@ -31,9 +31,7 @@ class Home extends Component
     #[On('post-created')]
     public function postCreated($id)
     {
-
         $post = Post::find($id);
-
         $this->posts = $this->posts->prepend($post);
     }
 

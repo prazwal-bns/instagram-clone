@@ -92,7 +92,7 @@
 
             @case('video')
 
-            <x-video :controls="false" :cover="true" source="{{$cover->url}}" />
+            <x-my-reels :controls="false" :cover="true" source="{{$cover->url}}" />
 
             @break
             @case('image')

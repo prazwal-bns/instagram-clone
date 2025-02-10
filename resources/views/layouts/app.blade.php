@@ -12,6 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
         <link rel="icon" type="image/svg" href="{{ asset('assets/favicon.svg') }}">
+        <script src="{{ asset('js/app.js') }}"></script>
         <!-- Swiper Styles -->
 
         <style>
@@ -102,13 +103,14 @@
                 </div>
             </div>
 
-            <div class="fixed inset-0 z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
-                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-                {{-- @include('layouts.sidebar') --}}
-                <livewire:components.sidebar />
+            <div class="z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
+                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay">
+                    <livewire:components.sidebar />
+                </label>
+
             </div>
         </div>
 
-    @livewire('wire-elements-modal')
+        @livewire('wire-elements-modal')
     </body>
 </html>
