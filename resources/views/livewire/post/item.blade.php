@@ -19,7 +19,7 @@
                 <a href="{{ route('profile.home', $post->user->username) }}" class="text-sm font-semibold truncate"> {{ $post->user->name }} </a>
             </div>
 
-            <div class="flex justify-end col-span-2 text-right">
+            {{-- <div class="flex justify-end col-span-2 text-right">
                 @if ($post->user_id == auth()->user()->id)
                 <a href="#" x-on:click="Livewire.dispatch('openModal', { component: 'post.edit', arguments: { postId: {{ $post->id }} } })" class="ml-auto text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -29,6 +29,69 @@
                     </svg>
                 </a>
                 @endif
+            </div> --}}
+
+            <div x-data="{ open: false }" class="relative flex justify-end col-span-2 text-right">
+                <button @click="open = !open" class="ml-auto text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                    </svg>
+                </button>
+
+                <div x-show="open"
+                    @click.away="open = false"
+                    class="absolute right-0 z-50 w-56 mt-2 bg-white rounded-md shadow-lg">
+                    <div class="py-1">
+                        @if ($post->user_id == auth()->user()->id)
+                            <button
+                                class="block w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100"
+                                @click.stop=" /* Your delete action here */ open = false">  {{-- .stop added --}}
+                                Delete
+                            </button>
+
+                            <button wire:click.stop="$dispatch('openModal', { component: 'post.edit', arguments: { postId: {{ $post->id }} } }); open = false"  {{-- .stop added --}}
+                                class="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100">
+                                Edit
+                            </button>
+
+                            <button class="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
+                                    @click.stop=" /* Your hide likes action here */ open = false">  {{-- .stop added --}}
+                                Hide like count to others
+                            </button>
+
+                            <button class="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
+                                    @click.stop=" /* Your turn off comments action here */ open = false">  {{-- .stop added --}}
+                                Turn off commenting
+                            </button>
+                        @endif
+
+                        <a href="{{ route('post', $post->id) }}"
+                            class="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
+                            @click="open = false">
+                            Go to post
+                        </a>
+
+                        @if ($post->user_id != auth()->user()->id)
+                            <button class="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
+                                    @click=" /* Your add to favorites action here */ open = false">
+                                Add to favorites
+                            </button>
+
+                            <button class="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
+                                    @click=" /* Your profile action here */ open = false">
+                                View Profile
+                            </button>
+
+                            <button class="block w-full px-4 py-2 text-left text-red-700 hover:bg-gray-100"
+                                    @click=" /* Your unfollow action here */ open = false">
+                                Unfollow
+                            </button>
+                        @endif
+
+
+                    </div>
+                </div>
             </div>
 
         </div>
