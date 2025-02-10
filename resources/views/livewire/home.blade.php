@@ -4,10 +4,7 @@ x-data="{
   canLoadMore:@entangle('canLoadMore')
 
 }"
-
-
 @scroll.window.trottle="
-
   scrollTop= window.scrollY ||window.scrollTop;
   divHeight= window.innerHeight||document.documentElement.clientHeight;
   scrollHeight = document.documentElement.scrollHeight;
@@ -21,10 +18,7 @@ x-data="{
 
     @this.loadMore();
   }
-
-
 "
-
 class="w-full h-full">
 
     {{--Header----}}

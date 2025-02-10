@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -17,7 +16,7 @@ class PostLikedNotification extends Notification implements ShouldBroadcastNow
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $user, public Post $post)
+    public function __construct(public User $user,public Post $post)
     {
         //
     }
@@ -51,8 +50,10 @@ class PostLikedNotification extends Notification implements ShouldBroadcastNow
     public function toArray(object $notifiable): array
     {
         return [
-            'user_id' => $this->user->id,
-            'post_id' => $this->post->id
+            //
+            'user_id'=>$this->user->id,
+            'post_id'=>$this->post->id,
+
         ];
     }
 }

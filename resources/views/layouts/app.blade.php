@@ -12,6 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
         <link rel="icon" type="image/svg" href="{{ asset('assets/favicon.svg') }}">
+        <script src="{{ asset('js/app.js') }}"></script>
         <!-- Swiper Styles -->
 
         <style>

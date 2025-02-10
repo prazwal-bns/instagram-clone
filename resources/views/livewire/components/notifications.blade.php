@@ -1,14 +1,16 @@
 <div
     x-init="
-    Echo.private('users.{{ auth()->user()->id }}')
-    .notification((notification) => {
+
+    Echo.private('users.{{auth()->user()->id}}')
+        .notification((notification) => {
         // alert('reached');
-        // $wire.$refresh();
-        @this.$refresh();
-    });
+        $wire.$refresh();
+        // @this.$refresh();
+        });
     "
-    class="w-full p-3 mt-6">
-    {{-- Nothing in the world is as soft and yielding as water. --}}
+
+
+    class="w-full p-3">
 
     <h3 class="text-4xl font-bold">Notifications</h3>
 
