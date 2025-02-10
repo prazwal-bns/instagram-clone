@@ -259,9 +259,10 @@
                             <a href="{{route('profile.home',$user->username)}}"
                                 class="flex items-center gap-2 truncate">
                                 <x-avatar wire:ignore class="mb-auto w-9 h-9"
-                                    src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" />
+                                    src="{{ asset($user->photo) }}" />
 
                                 <div class="flex flex-col">
+                                    <span class="text-lg font-bold">{{$user->name}}</span>
                                     <span class="text-sm font-bold">{{$user->username}}</span>
                                     <span class="text-xs font-normal truncate">{{ \Illuminate\Support\Str::words($user->bio, 10, '...') }}</span>
 
