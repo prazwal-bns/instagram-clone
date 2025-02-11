@@ -54,7 +54,7 @@ class Edit extends ModalComponent
         }
 
         $this->validate([
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'location' => 'nullable|string|max:255',
             'hide_like_view' => 'boolean',
             'allow_commenting' => 'boolean',

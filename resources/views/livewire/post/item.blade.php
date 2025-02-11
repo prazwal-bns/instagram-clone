@@ -34,8 +34,7 @@
             </div> --}}
 
             <div x-data="{ open: false }" class="relative flex justify-end col-span-2 text-right">
-                <!-- Three Dots Button -->
-                <button @click="open = true" class="ml-auto text-gray-500">
+                <button @click.stop="open = !open" class="ml-auto text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                         <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
@@ -47,12 +46,12 @@
                     <div class="w-11/12 max-w-md bg-white rounded-lg shadow-lg">
                         <!-- Modal Content -->
                         <div class="py-4">
-                            <div class="flex flex-col divide-y divide-gray-200">
+                            <div x-data="{ showConfirmDelete: false }" class="flex flex-col divide-y divide-gray-200">
                                 @if ($post->user_id == auth()->user()->id)
                                     <button
-                                        wire:click="deletePost({{ $post->id }})"
+                                        @click.stop="showConfirmDelete = true"
                                         class="w-full px-4 py-3 text-center text-red-600 hover:bg-gray-100"
-                                        @click.stop="open = false">
+                                    >
                                         Delete
                                     </button>
 
@@ -94,8 +93,34 @@
                                         Unfollow
                                     </button>
                                 @endif
+
+                                <!-- Confirmation Dialog -->
+                                <div x-show="showConfirmDelete"
+                                     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+                                     @click.self="showConfirmDelete = false">
+                                    <div class="p-6 bg-white rounded-lg shadow-xl">
+                                        <h3 class="mb-4 text-lg font-semibold">Are you sure you want to delete this post?</h3>
+                                        <div class="flex justify-end space-x-4">
+                                            <button
+                                                @click="showConfirmDelete = false"
+                                                class="px-4 py-2 text-gray-600 rounded hover:bg-gray-100"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                wire:click="deletePost({{ $post->id }})"
+                                                @click="showConfirmDelete = false; open = false"
+                                                class="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700"
+                                            >
+                                                Confirm Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+
 
                         <!-- Cancel Button -->
                         <div class="border-t border-gray-200">
