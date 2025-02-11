@@ -15,7 +15,8 @@
 
                 @case('video')
 
-                <x-video  source="{{$cover->url}}"  />
+                {{-- <x-video  source="{{$cover->url}}"  /> --}}
+                <x-my-reels :controls="false" source="{{$cover->url}}"  />
 
                 @break
                 @case('image')

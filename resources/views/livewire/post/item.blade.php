@@ -33,6 +33,7 @@
                 @endif
             </div> --}}
 
+
             <div x-data="{ open: false }" class="relative flex justify-end col-span-2 text-right">
                 <button @click.stop="open = !open" class="ml-auto text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -61,13 +62,13 @@
                                     </button>
 
                                     <button class="w-full px-4 py-3 text-center text-gray-700 hover:bg-gray-100"
-                                            @click.stop=" /* Your hide likes action here */ open = false">
-                                        Hide like count to others
+                                            @click.stop="$wire.toggleHideLikeView({{ $post->id }}); open = false" >
+                                        {{ $post->hide_like_view == 0 ? 'Hide like to Others' : 'Show like counts to others' }}
                                     </button>
 
                                     <button class="w-full px-4 py-3 text-center text-gray-700 hover:bg-gray-100"
-                                            @click.stop=" /* Your turn off comments action here */ open = false">
-                                        Turn off commenting
+                                            @click.stop="$wire.toggleCommenting({{ $post->id }}); open = false">
+                                        {{ $post->allow_commenting == 0 ? 'Turn on commenting' : 'Turn off commenting' }}
                                     </button>
                                 @endif
 
@@ -83,14 +84,14 @@
                                         Add to favorites
                                     </button>
 
-                                    <button class="w-full px-4 py-3 text-center text-gray-700 hover:bg-gray-100"
-                                            @click=" /* Your profile action here */ open = false">
+                                    <a href="{{ route('profile.home', $post->user->username) }}" class="w-full px-4 py-3 text-center text-gray-700 hover:bg-gray-100"
+                                            @click="open = false">
                                         View Profile
-                                    </button>
+                                    </a>
 
                                     <button class="w-full px-4 py-3 text-center text-red-700 hover:bg-gray-100"
-                                            @click=" /* Your unfollow action here */ open = false">
-                                        Unfollow
+                                        @click="$wire.toggleFollow({{ $post->user_id }}) ;open = false">
+                                        {{ auth()->user()->isFollowing($post->user) ? 'Unfollow' : 'Follow' }}
                                     </button>
                                 @endif
 
@@ -120,8 +121,6 @@
                             </div>
                         </div>
 
-
-
                         <!-- Cancel Button -->
                         <div class="border-t border-gray-200">
                             <button class="w-full px-4 py-3 text-center text-gray-700 hover:bg-gray-100"
@@ -132,6 +131,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 

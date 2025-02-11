@@ -133,12 +133,12 @@
                 {{$user->name}}
             </h4>
             <p>
-                <a href="{{$user->website_link}}" target="_blank" class="text-blue-500 font-semibold hover:underline hover:font-bold">
+                <a href="{{$user->website_link}}" target="_blank" class="font-semibold text-blue-500 hover:underline hover:font-bold">
                     {{$user->website}}
                 </a>
             </p>
-            
-            
+
+
             <h3>
                 {{$user->bio}}
             </h3>

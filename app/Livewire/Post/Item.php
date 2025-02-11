@@ -4,7 +4,9 @@ namespace App\Livewire\Post;
 
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use App\Notifications\NewCommentNotification;
+use App\Notifications\NewFollowerNotification;
 use App\Notifications\PostLikedNotification;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -14,6 +16,8 @@ class Item extends Component
     public Post $post;
 
     public $body;
+    public bool $hide_like_view = false;
+    public bool $allow_commenting = false;
 
     #[On('post-updated')]
     public function update(Post $post){
@@ -46,6 +50,41 @@ class Item extends Component
 
         $this->dispatch('post-deleted');
     }
+
+    public function toggleHideLikeView($postId)
+    {
+        $post = Post::findOrFail($postId);
+
+        $post->hide_like_view = !$post->hide_like_view;
+
+        $post->save();
+
+        $this->dispatch('post-updated', $post->id);
+        $this->dispatch('close');
+    }
+
+    public function toggleFollow(User $user){
+        abort_unless(auth()->check(),401);
+        auth()->user()->toggleFollow($user);
+
+        if($user->isFollowing(auth()->user())){
+            $user->notify(new NewFollowerNotification(auth()->user()));
+        }
+
+
+    }
+
+    public function toggleCommenting($postId){
+        $post = Post::findOrFail($postId);
+
+        $post->allow_commenting = !$post->allow_commenting;
+
+        $post->save();
+
+        $this->dispatch('post-updated', $post->id);
+        $this->dispatch('close');
+    }
+
 
     public function addComment(){
         $this->validate([
