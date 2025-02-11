@@ -3,8 +3,11 @@
     drawer:@entangle('drawer').live,
     showSearch:false,
     showNotifications:false
-
-    }" class="grid w-20 h-full p-3 bg-white border-r menu text-base-content" :class="{'w-72 ':!shrink}">
+    }"
+    x-init="
+        $wire.shrink={{request()->routeIs('chat')}}
+    "
+    class="grid w-20 h-full p-3 bg-white border-r menu text-base-content" :class="{'w-72 ':!shrink}">
 
     {{--Logo--}}
     <div class="pt-3">
@@ -22,7 +25,7 @@
     {{-- Side content --}}
     <ul class="space-y-4">
 
-        <li><a wire:navigate href="/" class="flex items-center gap-5 ">
+        <li><a wire:navigate href="/" class="flex items-center gap-5 hover:bg-gray-200">
 
                 <span>
                     @if (request()->routeIs('dashboard') || request()->is('/'))
@@ -106,16 +109,20 @@
 
 
 
-        <li><a class="flex items-center gap-5">
+        <li><a wire:navigate href="{{ route('chat') }}" class="flex items-center gap-5">
 
                 <span>
-                    <svg class="w-6 h-6 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="messenger"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.268,2.112A13,13,0,0,0,6,23.3v3.661A1.258,1.258,0,0,0,7.82,28.09l2.663-1.332a12.9,12.9,0,0,0,7.25,1.126A13,13,0,1,0,14.268,2.112Z"></path><path d="M9.049,18.163,13.64,11.63a.64.64,0,0,1,.94-.2l3.075,2.307a.641.641,0,0,0,.714.036l3.745-2.646a.64.64,0,0,1,.9.835l-3.707,6.414a.64.64,0,0,1-.9.263L14.3,16.181a.638.638,0,0,0-.615-.024l-3.794,2.9A.641.641,0,0,1,9.049,18.163Z"></path></svg>
-
-                    {{-- <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    @if (request()->routeIs('chat'))
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         fill="currentColor" viewBox="0 0 16 16">
                         <path
                             d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.639.639 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.639.639 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76zm5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z" />
-                    </svg> --}}
+                        </svg>
+                    @else
+                        <svg class="w-6 h-6 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="messenger"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.268,2.112A13,13,0,0,0,6,23.3v3.661A1.258,1.258,0,0,0,7.82,28.09l2.663-1.332a12.9,12.9,0,0,0,7.25,1.126A13,13,0,1,0,14.268,2.112Z"></path><path d="M9.049,18.163,13.64,11.63a.64.64,0,0,1,.94-.2l3.075,2.307a.641.641,0,0,0,.714.036l3.745-2.646a.64.64,0,0,1,.9.835l-3.707,6.414a.64.64,0,0,1-.9.263L14.3,16.181a.638.638,0,0,0-.615-.024l-3.794,2.9A.641.641,0,0,1,9.049,18.163Z"></path></svg>
+                    @endif
+
+
 
                 </span>
 
