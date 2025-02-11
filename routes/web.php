@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialiteController;
 use App\Livewire\Chat\Index;
+use App\Livewire\Chat\Main;
 use App\Livewire\Editprofile;
 use App\Livewire\Explore;
 use App\Livewire\Home;
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/post/{post}', Page::class)->name('post');
 
     Route::get('/chat',Index::class)->name('chat');
+    Route::get('/chat/{chat}',Main::class)->name('chat.main');
 
     Route::get('/edit/my-profile', Editprofile::class)->name('edit.my-profile');
 
