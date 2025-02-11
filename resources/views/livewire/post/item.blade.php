@@ -1,5 +1,7 @@
 <div class="max-w-xl mx-auto">
     {{-- header --}}
+    @if ($post)
+
     <header class="flex items-center gap-3">
         {{-- <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="w-10 h-10" /> --}}
 
@@ -48,8 +50,9 @@
                             <div class="flex flex-col divide-y divide-gray-200">
                                 @if ($post->user_id == auth()->user()->id)
                                     <button
+                                        wire:click="deletePost({{ $post->id }})"
                                         class="w-full px-4 py-3 text-center text-red-600 hover:bg-gray-100"
-                                        @click.stop=" /* Your delete action here */ open = false">
+                                        @click.stop="open = false">
                                         Delete
                                     </button>
 
@@ -338,4 +341,6 @@
 
     </footer>
 
+
+    @endif
 </div>

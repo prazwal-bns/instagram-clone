@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\NewFollowerNotification;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -70,6 +71,10 @@ class Home extends Component
     public function toggleFollow(User $user){
         abort_unless(auth()->check(),401);
         auth()->user()->toggleFollow($user);
+
+        if($user->isFollowing(auth()->user())){
+            $user->notify(new NewFollowerNotification(auth()->user()));
+        }
     }
 
     public function render()

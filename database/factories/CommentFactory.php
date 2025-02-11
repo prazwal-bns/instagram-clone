@@ -22,7 +22,7 @@ class CommentFactory extends Factory
             'parent_id'=>null,
             'commentable_id'=>Post::factory(),
             'commentable_type'=>Post::class,
-            'body'=>$this->faker->paragraph(),
+            'body'=>$this->faker->sentence(3),
             'user_id'=>User::factory(),
         ];
     }

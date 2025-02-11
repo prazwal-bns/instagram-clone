@@ -20,9 +20,31 @@ class Item extends Component
         $this->post = $post;
     }
 
+    #[On('post-deleted')]
+    public function delete(){
+        $this->posts = Post::latest()->get();
+    }
+
     public function render()
     {
         return view('livewire.post.item');
+    }
+
+    public function deletePost($postId){
+        $post = Post::findOrFail($postId);
+
+        if($post->user_id != auth()->user()->id){
+            abort(403, 'You\'re not authorized to delete this post.');
+        }
+
+        $post->comments()->delete();
+
+        $post->media()->delete();
+        $post->delete();
+
+        $this->reset();
+
+        $this->dispatch('post-deleted');
     }
 
     public function addComment(){
