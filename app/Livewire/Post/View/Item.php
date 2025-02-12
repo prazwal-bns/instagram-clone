@@ -4,8 +4,11 @@ namespace App\Livewire\Post\View;
 
 use App\Models\Comment ;
 use App\Models\Post;
+use App\Models\User;
 use App\Notifications\NewCommentNotification;
+use App\Notifications\NewFollowerNotification;
 use App\Notifications\PostLikedNotification;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Item extends Component
@@ -13,6 +16,73 @@ class Item extends Component
     public Post $post;
     public $body;
     public $parent_id = null;
+
+
+    public bool $hide_like_view = false;
+    public bool $allow_commenting = false;
+
+    #[On('post-updated')]
+    public function update(Post $post){
+        $this->post = $post;
+    }
+
+    #[On('post-deleted')]
+    public function delete(){
+        $this->posts = Post::latest()->get();
+    }
+
+
+    public function deletePost($postId){
+        $post = Post::findOrFail($postId);
+
+        if($post->user_id != auth()->user()->id){
+            abort(403, 'You\'re not authorized to delete this post.');
+        }
+
+        $post->comments()->delete();
+
+        $post->media()->delete();
+        $post->delete();
+
+        $this->reset();
+
+        // $this->dispatch('post-deleted');
+        return redirect()->route('home');
+    }
+
+    public function toggleHideLikeView($postId)
+    {
+        $post = Post::findOrFail($postId);
+
+        $post->hide_like_view = !$post->hide_like_view;
+
+        $post->save();
+
+        $this->dispatch('post-updated', $post->id);
+        $this->dispatch('close');
+    }
+
+    public function toggleFollow(User $user){
+        abort_unless(auth()->check(),401);
+        auth()->user()->toggleFollow($user);
+
+        if($user->isFollowing(auth()->user())){
+            $user->notify(new NewFollowerNotification(auth()->user()));
+        }
+
+
+    }
+
+    public function toggleCommenting($postId){
+        $post = Post::findOrFail($postId);
+
+        $post->allow_commenting = !$post->allow_commenting;
+
+        $post->save();
+
+        $this->dispatch('post-updated', $post->id);
+        $this->dispatch('close');
+    }
 
     public function render()
     {
