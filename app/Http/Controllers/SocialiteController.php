@@ -14,13 +14,42 @@ class SocialiteController extends Controller
         return Socialite::driver($provider)->stateless()->redirect();
     }
 
+    // public function callback(string $provider)
+    // {
+    //     $response = Socialite::driver($provider)->stateless()->user();
+    //     // dd($response);
+    //         $user = User::firstWhere('email', $response->getEmail());
+    //         if ($user) {
+    //             // $user->update([$provider . '_id' => $response->getId()]);
+    //             auth()->login($user, true);
+    //         } else {
+    //             $username = $this->generateUniqueUsername($response->getName());
+
+    //             $user = User::create([
+    //                 $provider . '_id' => $response->getId(),
+    //                 'name' => $response->getName(),
+    //                 'username' => $username,
+    //                 'email' => $response->getEmail(),
+    //                 'photo' => $response->getAvatar(),
+    //                 'password' => 'password',
+    //             ]);
+    //         }
+    //         Auth::login($user);
+    //         return redirect()->intended(route('home'));
+    // }
+
     public function callback(string $provider)
     {
-        $response = Socialite::driver($provider)->stateless()->user();
-        // dd($response);
+        if (request()->has('error')) {
+            return redirect()->route('home')->with('error', 'Facebook login canceled or failed');
+        }
+
+        try {
+            $response = Socialite::driver($provider)->stateless()->user();
+
             $user = User::firstWhere('email', $response->getEmail());
+
             if ($user) {
-                // $user->update([$provider . '_id' => $response->getId()]);
                 auth()->login($user, true);
             } else {
                 $username = $this->generateUniqueUsername($response->getName());
@@ -34,9 +63,15 @@ class SocialiteController extends Controller
                     'password' => 'password',
                 ]);
             }
+
             Auth::login($user);
             return redirect()->intended(route('home'));
+
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with('error', 'There was an issue with the Facebook login');
+        }
     }
+
 
 
     public function generateUniqueUsername($name)
