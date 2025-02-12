@@ -14,9 +14,15 @@
 
         {{--profile username --}}
         <div class="col-span-8 ">
-            <h1 class="mx-auto font-bold truncate">
+            <span class="flex items-center col-span-11 gap-1 text-lg font-medium lg:col-span-5">
                 {{$user->username}}
-            </h1>
+
+                @if($user->is_verified)
+                    <span class="pl-2 text-blue-500">
+                        <svg aria-label="Verified" class="x1lliihq x1n2onr6" fill="rgb(0, 149, 246)" height="20" role="img" viewBox="0 0 40 40" width="20"><title>Verified</title><path d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Zm7.415 11.225 2.254 2.287-11.43 11.5-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18Z" fill-rule="evenodd"></path></svg>
+                    </span>
+                @endif
+            </span>
         </div>
 
         <span class="flex justify-end col-span-2 ">
@@ -50,8 +56,14 @@
 
             {{-- Actions --}}
             <section class="grid grid-cols-12 gap-3">
-                <span class="col-span-11 text-lg font-medium lg:col-span-5">
+                <span class="flex items-center col-span-11 gap-1 text-lg font-medium lg:col-span-5">
                     {{$user->username}}
+
+                    @if($user->is_verified)
+                        <span class="pl-2 text-blue-500">
+                            <svg aria-label="Verified" class="x1lliihq x1n2onr6" fill="rgb(0, 149, 246)" height="20" role="img" viewBox="0 0 40 40" width="20"><title>Verified</title><path d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Zm7.415 11.225 2.254 2.287-11.43 11.5-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18Z" fill-rule="evenodd"></path></svg>
+                        </span>
+                    @endif
                 </span>
 
                 {{-- Wrap around auth--}}

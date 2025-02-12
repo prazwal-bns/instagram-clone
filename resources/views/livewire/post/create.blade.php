@@ -89,7 +89,7 @@
         <aside class="flex flex-col h-full gap-4 p-3 overflow-hidden overflow-y-scroll border-l lg:col-span-5">
 
             <div class="flex items-center gap-2">
-                <x-avatar class="w-9 h-9" src="{{ auth()->user()->photo }}" />
+                <x-avatar class="w-9 h-9" src="{{ asset(auth()->user()->photo) }}" />
                 <h5 class="font-bold">{{ auth()->user()->name }}</h5>
             </div>
 

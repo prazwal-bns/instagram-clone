@@ -34,7 +34,8 @@ class User extends Authenticatable
         'address',
         'website',
         'website_link',
-        'provider_id'
+        'provider_id',
+        'is_verified',
     ];
 
     /**
