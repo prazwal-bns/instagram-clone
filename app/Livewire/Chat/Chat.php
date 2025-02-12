@@ -30,6 +30,16 @@ class Chat extends Component
         ]);
 
         $this->reset('body');
+
+        // push the message
+        $this->loadedMessages->push($createdMessage);
+
+        // update the conversation model - for sorting in chat list
+        $this->conversation->updated_at=now();
+        $this->conversation->save();
+
+        // dispatch event 'refresh' to chat list
+        $this->dispatch(event: 'refresh')->to(ChatList::class);
     }
 
     public function loadMessages(){
