@@ -26,9 +26,12 @@ class VerifyUsers extends Command
      */
     public function handle()
     {
-        User::withCount('posts')
-            ->where('posts_count', '>', 5)
-            ->update(['is_verified' => true]);
+        $users = User::has('posts', '>', 5)->get();
+
+        // Update the 'is_verified' field for those users
+        foreach ($users as $user) {
+            $user->update(['is_verified' => true]);
+        }
 
         $this->info('Users with more than 5 posts have been verified.');
     }

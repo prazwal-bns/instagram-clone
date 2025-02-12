@@ -33,8 +33,18 @@
 
                 <!-- User details -->
                 <div>
-                    <h2 class="font-medium">{{ auth()->user()->username }}</h2>
-                    <p class="text-sm text-gray-600">{{ auth()->user()->name }}</p>
+                    <h2 class="flex items-center font-semibold truncate">{{ auth()->user()->username }}
+                        @if(auth()->user()->is_verified)
+                            <span class="pl-2 text-blue-500">
+                                <svg aria-label="Verified" class="x1lliihq x1n2onr6" fill="rgb(0, 149, 246)" height="20" role="img" viewBox="0 0 40 40" width="20">
+                                    <title>Verified</title>
+                                    <path d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Zm7.415 11.225 2.254 2.287-11.43 11.5-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18Z" fill-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        @endif
+                    </h2>
+                    <p class="text-sm text-gray-600">{{ auth()->user()->name }}
+                    </p>
                 </div>
             </div>
 
@@ -76,8 +86,8 @@
             </div> --}}
 
             <!-- Website Input Field -->
-            <div class="mb-6 relative">
-                <label class="block mb-2 font-medium">Website <span class="text-gray-400 text-sm">optional</span></label>
+            <div class="relative mb-6">
+                <label class="block mb-2 font-medium">Website <span class="text-sm text-gray-400">optional</span></label>
 
                 <div class="flex items-center space-x-3">
                     <!-- Website Name -->
@@ -91,14 +101,14 @@
                     <!-- Link Button -->
                     <button type="button"
                         onclick="document.getElementById('website_modal').classList.remove('hidden')"
-                        class="flex items-center px-4 py-2 border rounded-lg text-gray-500 hover:bg-gray-100"
+                        class="flex items-center px-4 py-2 text-gray-500 border rounded-lg hover:bg-gray-100"
                     >
                         🔗 Link
                     </button>
 
                     <!-- Delete Button -->
                     <button type="button"
-                        class="flex items-center px-4 py-2 border rounded-lg text-red-500 hover:bg-red-100"
+                        class="flex items-center px-4 py-2 text-red-500 border rounded-lg hover:bg-red-100"
                     >
                         🗑️
                     </button>
@@ -106,9 +116,9 @@
             </div>
 
             <!-- Modal for Link URL -->
-            <div id="website_modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm hidden">
-                <div class="bg-white p-6 rounded-lg shadow-xl w-96">
-                    <h2 class="text-lg font-semibold mb-3">Link URL</h2>
+            <div id="website_modal" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50 backdrop-blur-sm">
+                <div class="p-6 bg-white rounded-lg shadow-xl w-96">
+                    <h2 class="mb-3 text-lg font-semibold">Link URL</h2>
 
                     <input type="url"
                         wire:model="website_link"
@@ -119,14 +129,14 @@
                     <div class="flex justify-between mt-4">
                         <button type="button"
                             onclick="document.getElementById('website_modal').classList.add('hidden')"
-                            class="px-4 py-2 border rounded-lg text-gray-500 hover:bg-gray-100"
+                            class="px-4 py-2 text-gray-500 border rounded-lg hover:bg-gray-100"
                         >
                             Cancel
                         </button>
 
                         <button type="button"
                             onclick="document.getElementById('website_modal').classList.add('hidden')"
-                            class="px-4 py-2 rounded-lg bg-gradient-to-r from-pink-500 to-red-500 text-white"
+                            class="px-4 py-2 text-white rounded-lg bg-gradient-to-r from-pink-500 to-red-500"
                         >
                             Add
                         </button>
@@ -134,9 +144,9 @@
                 </div>
             </div>
 
-            
-            
-            
+
+
+
             <!-- Email Section -->
 
             <!-- Address Section -->
