@@ -347,7 +347,7 @@
                 <div x-show="showEmojiPicker" x-cloak
                     class="absolute right-0 z-10 p-2 mb-2 bg-white border rounded-lg shadow-lg bottom-full"
                     @click.outside="showEmojiPicker = false">
-                    <emoji-picker @emoji-click="insertEmoji($event.detail.unicode)"></emoji-picker>
+                    <emoji-picker class="light" @emoji-click="insertEmoji($event.detail.unicode)"></emoji-picker>
                 </div>
 
             </div>
