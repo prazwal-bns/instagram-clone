@@ -314,10 +314,9 @@
             {{-- leave comment --}}
             <div class="relative" x-data="{
                 showEmojiPicker: false,
-                insertEmoji(emoji) {
+                 insertEmoji(emoji) {
                     const currentBody = this.$wire.body || '';
                     this.$wire.set('body', currentBody + emoji);
-                    this.showEmojiPicker = false;
                 }
             }" x-init="$watch('$wire.body', value => $refs.commentInput.value = value || '')">
                 <form wire:key="{{ time() }}" class="grid items-center w-full grid-cols-12" wire:submit.prevent="addComment">
