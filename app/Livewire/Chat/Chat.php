@@ -4,6 +4,7 @@ namespace App\Livewire\Chat;
 
 use App\Models\Conversation;
 use App\Models\Message;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Chat extends Component
@@ -53,6 +54,18 @@ class Chat extends Component
         $this->loadedMessages = Message::where('conversation_id', $this->conversation->id)->skip($count - $this->paginate_var)->take($this->paginate_var)->get();
 
         return $this->loadedMessages;
+    }
+
+    #[On('loadMore')]
+    public function loadMore(){
+        //increment
+        $this->paginate_var +=10;
+
+        // call load message
+        $this->loadMessages();
+
+        // dispatch event update height
+        $this->dispatch('update-height');
     }
 
     public function mount(){

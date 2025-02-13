@@ -85,18 +85,18 @@ class="w-full h-full overflow-hidden ">
         @update-height.window="
 
             $nextTick(()=>{
-                  newHeight= $el.scrollHeight;
+                newHeight= $el.scrollHeight;
 
-                  oldHeight= height;
+                oldHeight= height;
 
-                  $el.scrollTop= newHeight- oldHeight;
+                $el.scrollTop= newHeight- oldHeight;
 
-                  height=newHeight;
+                height=newHeight;
                 });
 
 
             "
-        id="conversation" class="flex flex-col   gap-5   p-2.5  overflow-y-auto flex-grow  overscroll-contain overflow-x-hidden w-full my-auto ">
+        id="conversation" class="flex flex-col gap-7 p-2.5 overflow-y-auto flex-grow  overscroll-contain overflow-x-hidden w-full my-auto ">
 
             <!--Message-->
 
