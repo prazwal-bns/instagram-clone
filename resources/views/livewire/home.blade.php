@@ -62,13 +62,24 @@ class="w-full h-full">
             <aside class="overflow-hidden lg:col-span-8" x-data="{ isExpanded: true }">
                 {{-- Stories --}}
                 <section>
-                    <ul wire:ignore class="flex items-center w-full gap-3 px-16 overflow-x-auto scrollbar-hide">
-                        @for ($i = 0; $i < 15; $i++)
+                    <ul class="flex items-center w-full gap-3 px-16 overflow-x-auto scrollbar-hide">
+                        {{-- Add Story Button --}}
+                        <li class="flex flex-col justify-center w-20 gap-1 p-2">
+                            <button wire:click="$dispatch('open-story-creator')" class="relative">
+                                <x-avatar :src="auth()->user()->photo ? asset(auth()->user()->photo) : null" class="h-18 w-18" />
+                                <span class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 text-white bg-blue-500 rounded-full">+</span>
+                            </button>
+                            <p class="text-xs font-medium truncate">Your Story</p>
+                        </li>
+
+                        @foreach ($activeStories as $story)
                             <li class="flex flex-col justify-center w-20 gap-1 p-2">
-                                <x-avatar story src="https://randomuser.me/api/portraits/men/{{ rand(0, 99) }}.jpg" class="h-18 w-18" />
-                                <p class="text-xs font-medium truncate">{{ fake()->name }}</p>
+                                <button wire:click="$dispatch('view-user-stories', { userId: {{ $story->user_id }} })">
+                                    <x-avatar story :src="$story->user->photo" class="h-18 w-18" />
+                                </button>
+                                <p class="text-xs font-medium truncate">{{ $story->user->name }}</p>
                             </li>
-                        @endfor
+                        @endforeach
                     </ul>
                 </section>
 
@@ -179,5 +190,57 @@ class="w-full h-full">
             </aside>
         </main>
 
+
+
+        {{-- Story Creator Modal --}}
+        <div x-data="{ open: false }"
+            x-on:open-story-creator.window="open = true"
+            x-on:close-story-creator.window="open = false"
+            x-show="open"
+            x-cloak
+            class="fixed inset-0 z-50 overflow-y-auto">
+        <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div x-show="open"
+                 x-transition:enter="ease-out duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="ease-in duration-200"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
+                 @click="open = false">
+            </div>
+
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div x-show="open"
+                 x-transition:enter="ease-out duration-300"
+                 x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                 x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                 x-transition:leave="ease-in duration-200"
+                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                 class="inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div class="absolute top-0 right-0 pt-4 pr-4">
+                    <button @click="open = false" class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">
+                            Create a Story
+                        </h3>
+                        <div class="mt-2">
+                            @livewire('story.story-component')
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>

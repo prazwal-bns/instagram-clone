@@ -113,5 +113,6 @@
         </div>
 
         @livewire('wire-elements-modal')
+        @livewire('story.story-viewer')
     </body>
 </html>

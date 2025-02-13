@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Post;
+use App\Models\Story;
 use App\Models\User;
 use App\Notifications\NewFollowerNotification;
 use Livewire\Attributes\On;
@@ -36,6 +37,14 @@ class Home extends Component
         $this->posts = $this->posts->prepend($post);
     }
 
+    public function getActiveStoriesProperty()
+    {
+        return Story::with('user')
+            ->where('expires_at', '>', now())
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->unique('user_id');
+    }
 
     /*
      * --------------------------
@@ -80,6 +89,9 @@ class Home extends Component
     public function render()
     {
         $suggestedUsers = User::where('id', '!=', auth()->id())->limit(5)->get();
-        return view('livewire.home',['suggestedUsers' => $suggestedUsers]);
+        return view('livewire.home',[
+            'suggestedUsers' => $suggestedUsers,
+            'activeStories' => $this->activeStories,
+        ]);
     }
 }
