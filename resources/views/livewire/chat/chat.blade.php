@@ -1,4 +1,20 @@
-<div class="w-full h-full p-5 overflow-hidden">
+<div
+x-data="{
+    height:0,
+    conversationElement:document.getElementById('conversation'),
+}"
+
+x-init="
+        height= conversationElement.scrollHeight;
+        $nextTick(()=>conversationElement.scrollTop= height);
+
+ "
+
+ @scroll-bottom.window="
+ $nextTick(()=>conversationElement.scrollTop= conversationElement.scrollHeight);
+ "
+
+class="w-full h-full overflow-hidden ">
 
     <div class="flex flex-col h-full overflow-y-scroll border-r grow">
         {{--------------}}
@@ -59,7 +75,28 @@
         {{--------------}}
         {{---Messages---}}
         {{--------------}}
-        <main class="flex flex-col   gap-5   p-2.5  overflow-y-auto flex-grow  overscroll-contain overflow-x-hidden w-full my-auto ">
+        <main
+        @scroll="
+            scropTop = $el.scrollTop;
+            if(scropTop <= 0){
+                @this.dispatch('loadMore');
+            }
+        "
+        @update-height.window="
+
+            $nextTick(()=>{
+                  newHeight= $el.scrollHeight;
+
+                  oldHeight= height;
+
+                  $el.scrollTop= newHeight- oldHeight;
+
+                  height=newHeight;
+                });
+
+
+            "
+        id="conversation" class="flex flex-col   gap-5   p-2.5  overflow-y-auto flex-grow  overscroll-contain overflow-x-hidden w-full my-auto ">
 
             <!--Message-->
 

@@ -102,10 +102,14 @@
             </div>
 
 
-            <div class="absolute inset-0 z-50 h-full sm:fixed sm:h-screen drawer-side">
-                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-                <livewire:components.sidebar />
+            <div class="z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
+                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay">
+                    <livewire:components.sidebar />
+                </label>
+
             </div>
+
+
 
         </div>
 
@@ -114,9 +118,7 @@
     </body>
 </html>
 
- {{-- <div class="z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
-                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay">
-                    <livewire:components.sidebar />
-                </label>
-
+ {{-- <div class="absolute inset-0 z-50 h-full sm:fixed sm:h-screen drawer-side">
+                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+                <livewire:components.sidebar />
             </div> --}}

@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         Post::factory(5)->hasComments(rand(15,20))->create(['type'=>'reel']);
 
 
-        Story::factory(20)->create();
+        // Story::factory(20)->create();
 
         // Create comment replies
         // Comment::limit(10)->each(function($comment){
