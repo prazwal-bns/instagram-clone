@@ -12,7 +12,17 @@ class Main extends Component
 
 
     public function mount(){
-        $this->conversation = Conversation::findOrFail($this->chat);
+        // $this->conversation = Conversation::findOrFail($this->chat);
+        $this->conversation = Conversation::where(function($query) {
+            $query->where('sender_id', auth()->id())
+                  ->orWhere('receiver_id', auth()->id());
+        })
+        ->findOrFail($this->chat); // If no conversation found, it will throw a ModelNotFoundException
+
+        // If no matching conversation, abort with 403 Forbidden error
+        if (!$this->conversation) {
+            abort(403, 'You are not authorized to view this conversation.');
+        }
     }
 
     public function render()
