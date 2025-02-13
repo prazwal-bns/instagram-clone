@@ -7,6 +7,7 @@ use Livewire\WithFileUploads;
 use App\Models\Story;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\On;
 
 class StoryComponent extends Component
 {
@@ -16,6 +17,18 @@ class StoryComponent extends Component
     public $mediaType;
     public $text;
     public $availableMediaTypes = ['image', 'video'];
+    public $isOpen = true;
+
+    #[On('navigate-home')]
+    public function cancelStory()
+    {
+        $this->reset(['media', 'mediaType', 'text']);
+        if ($this->media) {
+            $this->media->delete();
+        }
+        $this->closeStoryCreator();
+        $this->redirect('/', navigate: true);
+    }
 
     protected $rules = [
         'media' => 'required|file|max:20480',
@@ -62,8 +75,24 @@ class StoryComponent extends Component
         return redirect()->route('home');
     }
 
+    // public function cancelStory()
+    // {
+    //     $this->reset(['media', 'mediaType', 'text']);
+    //     if ($this->media) {
+    //         $this->media->delete();
+    //     }
+    //     $this->closeStoryCreator();
+    // }
+
+    public function closeStoryCreator()
+    {
+        $this->isOpen = false;
+        $this->dispatch('story-creator-closed');
+    }
+
     public function render()
     {
         return view('livewire.story.story-component');
     }
 }
+

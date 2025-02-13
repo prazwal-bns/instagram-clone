@@ -82,13 +82,10 @@
 
     </head>
     <body class="font-sans antialiased">
-          <div class="drawer lg:drawer-open">
+        <div class="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
             <div class="flex flex-col items-start drawer-content">
                 <!-- Page content here -->
-                {{-- <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">
-                    Open drawer
-                </label> --}}
                 <label for="my-drawer-2" class="p-1 drawer-button lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -104,15 +101,22 @@
                 </div>
             </div>
 
-            <div class="z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
-                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay">
-                    <livewire:components.sidebar />
-                </label>
 
+            <div class="absolute inset-0 z-50 h-full sm:fixed sm:h-screen drawer-side">
+                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+                <livewire:components.sidebar />
             </div>
+
         </div>
 
         @livewire('wire-elements-modal')
         @livewire('story.story-viewer')
     </body>
 </html>
+
+ {{-- <div class="z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
+                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay">
+                    <livewire:components.sidebar />
+                </label>
+
+            </div> --}}
