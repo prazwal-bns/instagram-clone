@@ -73,12 +73,25 @@
                         </li>
 
                         @foreach ($activeStories as $story)
-                        <li class="flex flex-col justify-center w-20 gap-1 p-2">
-                            <button wire:click="$dispatch('view-user-stories', { userId: {{ $story->user_id }} })">
-                                <x-avatar story :src="$story->user->photo" class="h-18 w-18" />
-                            </button>
-                            <p class="text-xs font-medium truncate">{{ $story->user->name }}</p>
-                        </li>
+                            <li class="flex flex-col items-center w-20 gap-1">
+                                <button wire:click="$dispatch('view-user-stories', { userId: {{ $story->user_id }} })" class="relative w-16 h-16">
+                                    <div class="absolute inset-0 bg-gradient-to-tr from-yellow-400 to-fuchsia-600 rounded-full p-0.5">
+                                        <div class="relative w-full h-full overflow-hidden bg-white rounded-full">
+                                            @if ($story->media_type === 'image')
+                                                <img src="{{ Storage::url($story->media_url) }}" alt="{{ $story->user->name }}'s story" class="object-cover w-full h-full">
+                                            @elseif ($story->media_type === 'video')
+                                                <video class="object-cover w-full h-full">
+                                                    <source src="{{ Storage::url($story->media_url) }}" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            @else
+                                                <x-avatar :src="$story->user->photo" class="w-full h-full" />
+                                            @endif
+                                        </div>
+                                    </div>
+                                </button>
+                                <p class="text-xs font-medium text-center truncate">{{ $story->user->name }}</p>
+                            </li>
                         @endforeach
                     </ul>
                 </section>
