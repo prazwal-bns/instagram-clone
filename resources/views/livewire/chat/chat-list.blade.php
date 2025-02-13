@@ -102,13 +102,12 @@
 
                     {{-- Read status --}}
                     {{-- Only show if AUTH is NOT onwer of message --}}
-                    <div class="{{ $lastMessage!=null && $lastMessage->sender_id!=auth()->id() && !$lastMessage->is_read ? 'visible' : 'invisible' }}flex flex-col col-span-2 my-auto text-center">
+                    <div class="{{ $lastMessage != null && $lastMessage->sender_id != auth()->id() &&  !$lastMessage->isRead()?'visible':'invisible'}} col-span-2 flex flex-col text-center my-auto">
 
                         {{-- Dots icon --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="w-10 h-10 text-blue-500 bi bi-dot" viewBox="0 0 16 16">
-                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-10 h-10 text-blue-500 bi bi-dot" viewBox="0 0 16 16">
+                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                          </svg>
 
                     </div>
 

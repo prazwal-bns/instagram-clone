@@ -3,6 +3,7 @@
 namespace App\Livewire\Chat;
 
 use App\Models\Conversation;
+use App\Models\Message;
 use Livewire\Component;
 
 class Main extends Component
@@ -17,7 +18,13 @@ class Main extends Component
             $query->where('sender_id', auth()->id())
                   ->orWhere('receiver_id', auth()->id());
         })
-        ->findOrFail($this->chat); // If no conversation found, it will throw a ModelNotFoundException
+        ->findOrFail($this->chat);
+
+        // mark messages belonging to receiver as read
+        Message::where('conversation_id', $this->conversation->id)
+            ->where('receiver_id', auth()->id())
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]);
 
         // If no matching conversation, abort with 403 Forbidden error
         if (!$this->conversation) {
