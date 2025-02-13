@@ -4,6 +4,7 @@ namespace App\Livewire\Chat;
 
 use App\Models\Conversation;
 use App\Models\Message;
+use App\Notifications\MessageSentNotification;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -17,6 +18,15 @@ class Chat extends Component
     public $loadedMessages;
     public $paginate_var=10;
 
+    public function listenBroadcastedMessage($event){
+        $this->dispatch('scroll-bottom');
+        $newMessage = Message::find($event['message_id']);
+        $this->loadedMessages->push($newMessage);
+
+        // mark as read
+        $newMessage->read_at = now();
+        $newMessage->save();
+    }
 
     public function sendMessage(){
         $this->validate([
@@ -44,6 +54,9 @@ class Chat extends Component
 
         // dispatch event 'refresh' to chat list
         $this->dispatch(event: 'refresh')->to(ChatList::class);
+
+        // broadcast new message
+        $this->receiver->notify(new MessageSentNotification(auth()->user(), $createdMessage, $this->conversation));
     }
 
     public function loadMessages(){

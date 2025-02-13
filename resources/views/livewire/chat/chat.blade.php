@@ -8,6 +8,12 @@ x-init="
         height= conversationElement.scrollHeight;
         $nextTick(()=>conversationElement.scrollTop= height);
 
+    Echo.private('users.{{auth()->user()->id}}')
+    .notification((notification) => {
+        if(notification['type']=='App\\Notifications\\MessageSentNotification'&&notification['conversation_id']=={{$conversation->id}}){
+            $wire.listenBroadcastedMessage(notification);
+        }
+    });
  "
 
  @scroll-bottom.window="

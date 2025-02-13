@@ -1,4 +1,13 @@
-<div class="flex flex-col h-full overflow-hidden transition-all">
+<div
+    x-init="
+     Echo.private('users.{{auth()->user()->id}}')
+        .notification((notification) => {
+            if(notification['type']=='App\\Notifications\\MessageSentNotification'){
+                $wire.refresh();
+            }
+        });
+    "
+    class="flex flex-col h-full overflow-hidden transition-all">
 
     <header class="sticky top-0 z-10 w-full px-3 py-2 bg-white sm:pt-12">
 
