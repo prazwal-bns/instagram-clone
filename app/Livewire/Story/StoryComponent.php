@@ -67,6 +67,7 @@ class StoryComponent extends Component
             'media_url' => $mediaPath,
             'text' => $this->text,
             'expires_at' => Carbon::now()->addHours(24),
+            // 'expires_at' => Carbon::now()->addSeconds(30),
         ]);
 
         $this->reset(['media', 'mediaType', 'text']);

@@ -10,4 +10,4 @@ Artisan::command('inspire', function () {
 
 
 Schedule::command('app:verify-users')->everyMinute();
-Schedule::command('stories:delete-expired')->everyFiveSeconds();
+Schedule::command('stories:delete-expired')->daily();

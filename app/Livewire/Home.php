@@ -23,6 +23,15 @@ class Home extends Component
 
     public $perPage = 10;
 
+    protected $listeners = ['story-deleted' => 'removeDeletedStory'];
+
+    public function removeDeletedStory($storyId)
+    {
+        $this->activeStories = $this->activeStories->filter(function ($story) use ($storyId) {
+            return $story->id !== $storyId;
+        });
+    }
+
     #[On('closeModal')]
     public function reverUrl()
     {
@@ -41,7 +50,8 @@ class Home extends Component
     {
         return Story::with('user')
             ->where('expires_at', '>', now())
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at')
+            // ->orderBy('created_at', 'desc')
             ->get()
             ->unique('user_id');
     }
