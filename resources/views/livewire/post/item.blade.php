@@ -91,8 +91,8 @@
 
                                 @if ($post->user_id != auth()->user()->id)
                                     <button class="w-full px-4 py-3 text-center text-gray-700 hover:bg-gray-100"
-                                            @click=" /* Your add to favorites action here */ open = false">
-                                        Add to favorites
+                                            @click="$wire.toggleFavourite();open = false">
+                                        {{ auth()->user()->hasFavorited($post) ? 'Remove from favorites' : 'Add to favorites' }}
                                     </button>
 
                                     <a href="{{ route('profile.home', $post->user->username) }}" class="w-full px-4 py-3 text-center text-gray-700 hover:bg-gray-100"
