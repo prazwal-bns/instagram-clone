@@ -53,7 +53,7 @@ class Chat extends Component
         $this->conversation->save();
 
         // dispatch event 'refresh' to chat list
-        $this->dispatch(event: 'refresh')->to(ChatList::class);
+        $this->dispatch('refresh')->to(ChatList::class);
 
         // broadcast new message
         $this->receiver->notify(new MessageSentNotification(auth()->user(), $createdMessage, $this->conversation));
