@@ -2,6 +2,8 @@
 x-data="{
     height:0,
     conversationElement:document.getElementById('conversation'),
+    messageSound: new Audio('/alert/bottle-205353.mp3'), // Updated path to your sound file
+    lastPlayedTime: 0,
 }"
 
 x-init="
@@ -10,17 +12,28 @@ x-init="
 
     Echo.private('users.{{auth()->user()->id}}')
     .notification((notification) => {
-        if(notification['type']=='App\\Notifications\\MessageSentNotification'&&notification['conversation_id']=={{$conversation->id}}){
+        if(notification['type']=='App\\Notifications\\MessageSentNotification'
+            && notification['conversation_id']=={{$conversation->id}}
+        ){
             $wire.listenBroadcastedMessage(notification);
+            // Only play sound if the message is from someone else and 2 seconds have passed
+            if(notification['user_id'] !== {{auth()->id()}}
+                && (Date.now() - lastPlayedTime) > 2000
+            ) {
+                messageSound.play();
+                lastPlayedTime = Date.now();
+            }
         }
     });
- "
+"
 
- @scroll-bottom.window="
- $nextTick(()=>conversationElement.scrollTop= conversationElement.scrollHeight);
- "
+@scroll-bottom.window="
+$nextTick(()=>conversationElement.scrollTop= conversationElement.scrollHeight);
+"
 
-class="w-full h-full overflow-hidden ">
+class="w-full h-full overflow-hidden">
+    <!-- Add this audio element with the correct path -->
+    <audio id="message-sound" src="{{ asset('alert/bottle-205353.mp3') }}" preload="auto"></audio>
 
     <div class="flex flex-col h-full overflow-y-scroll border-r grow">
         {{--------------}}
@@ -198,7 +211,7 @@ class="w-full h-full overflow-hidden ">
                     </button>
                 </div>
              </div>
-             @error('body') <p> {{$message}} </p> @enderror
+             {{-- @error('body') <p> {{$message}} </p> @enderror --}}
 
         </footer>
 
