@@ -62,20 +62,21 @@
                 <section>
                     <ul class="flex items-center w-full gap-3 px-16 overflow-x-auto scrollbar-hide">
                         {{-- Add Story Button --}}
-                        <li class="flex flex-col justify-center w-20 gap-1 p-2">
+                        <li class="flex flex-col items-center justify-center w-20 h-20 gap-1 p-2 rounded-full">
                             <button wire:click="$dispatch('open-story-creator')" class="relative">
                                 <x-avatar :src="auth()->user()->photo ? asset(auth()->user()->photo) : null"
-                                    class="h-18 w-18" />
+                                    class="w-16 h-16 rounded-full" />
                                 <span
                                     class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 text-white bg-blue-500 rounded-full">+</span>
                             </button>
                             <p class="text-xs font-medium truncate">Your Story</p>
                         </li>
 
+
                         @foreach ($activeStories as $story)
                             <li class="flex flex-col items-center w-20 gap-1">
                                 <button wire:click="$dispatch('view-user-stories', { userId: {{ $story->user_id }} })" class="relative w-16 h-16">
-                                    <div class="absolute inset-0 bg-gradient-to-tr from-yellow-400 to-fuchsia-600 rounded-full p-0.5">
+                                    <div class="absolute inset-0 p-1 rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600">
                                         <div class="relative w-full h-full overflow-hidden bg-white rounded-full">
                                             @if ($story->media_type === 'image')
                                                 <img src="{{ Storage::url($story->media_url) }}" alt="{{ $story->user->name }}'s story" class="object-cover w-full h-full">
