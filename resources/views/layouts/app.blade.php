@@ -86,7 +86,7 @@
             <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
             <div class="flex flex-col items-start drawer-content">
                 <!-- Page content here -->
-                <label for="my-drawer-2" class="p-1 drawer-button lg:hidden">
+                {{-- <label for="my-drawer-2" class="p-1 drawer-button lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -95,18 +95,24 @@
                         class="w-8 h-8 text-gray-700">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
-                </label>
+                </label> --}}
                 <div class="w-full h-full">
                     {{ $slot }}
                 </div>
             </div>
 
 
-            <div class="z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
+            {{-- <div class="z-10 overflow-visible drawer-side"> <!-- Fixed positioning with z-index -->
                 <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay">
                     <livewire:components.sidebar />
                 </label>
 
+            </div> --}}
+
+
+            <div class="absolute inset-0 z-50 drawer-side">
+                <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+                <livewire:components.sidebar />
             </div>
 
 
