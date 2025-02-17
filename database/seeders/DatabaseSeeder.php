@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Post::factory(20)->hasComments(rand(5,10))->create(['type'=>'post']);
-        Post::factory(1)->hasComments(rand(2,10))->create(['type'=>'reel']);
+        Post::factory(8)->hasComments(rand(2,10))->create(['type'=>'reel']);
 
 
         // Story::factory(20)->create();
