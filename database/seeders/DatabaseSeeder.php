@@ -37,8 +37,8 @@ class DatabaseSeeder extends Seeder
             'password'=> '@user123',
         ]);
 
-        Post::factory(20)->hasComments(rand(5,10))->create(['type'=>'post']);
-        Post::factory(8)->hasComments(rand(2,10))->create(['type'=>'reel']);
+        Post::factory(5)->hasComments(rand(2,10))->create(['type'=>'reel']);
+        Post::factory(25)->hasComments(rand(5,10))->create(['type'=>'post']);
 
 
         // Story::factory(20)->create();
