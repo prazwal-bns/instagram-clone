@@ -63,10 +63,9 @@
 
                     @foreach ($media as $key => $file)
                         <div class="w-full h-full shrink-0 snap-always snap-center">
-
+                            {{ dd($file->temporaryUrl()) }}
                             @if (strpos($file->getMimeType(), 'image') !== false)
-                                <img class="object-contain w-full h-full" src="{{ $file->temporaryUrl() }}"
-                                    alt="Image">
+                                <img class="object-contain w-full h-full" src="{{ $file->temporaryUrl() }}" alt="Image">
                             @elseif (strpos($file->getMimeType(), 'video') !== false)
                                 <x-video :source="$file->temporaryUrl()" />
                             @endif
