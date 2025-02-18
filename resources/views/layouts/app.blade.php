@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
         <link rel="icon" type="image/svg" href="{{ asset('assets/favicon.svg') }}">
         <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
+        {{-- <script src="{{ asset('js.app.js') }}"></script> --}}
         <!-- Swiper Styles -->
 
         <style>
