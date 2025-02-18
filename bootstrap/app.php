@@ -4,6 +4,13 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
+if (!function_exists('tmpfile')) {
+    function tmpfile() {
+        return fopen(tempnam(sys_get_temp_dir(), 'tmp'), 'w+');
+    }
+}
+
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
