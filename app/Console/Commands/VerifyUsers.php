@@ -26,7 +26,7 @@ class VerifyUsers extends Command
      */
     public function handle()
     {
-        $users = User::has('posts', '>', 5)->get();
+        $users = User::has('posts', '>', 2)->get();
 
         // Update the 'is_verified' field for those users
         foreach ($users as $user) {
