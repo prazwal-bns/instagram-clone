@@ -2,7 +2,7 @@
 x-data="{
     height:0,
     conversationElement:document.getElementById('conversation'),
-    messageSound: new Audio('/alert/bottle-205353.mp3'), // Updated path to your sound file
+    messageSound: new Audio('{{ asset('alert/bottle-205353.mp3') }}'), // Updated path to your sound file
     lastPlayedTime: 0,
 }"
 
