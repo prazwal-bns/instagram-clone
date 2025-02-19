@@ -31,6 +31,22 @@
                 </div>
             </div>
 
+            <div class="p-5 mb-6 text-center border-l-4 border-blue-500 rounded-lg shadow-md bg-blue-50">
+                <div class="flex items-center justify-center mb-2">
+                    <span class="ml-2 text-lg font-semibold text-yellow-700">Important Notice</span>
+                </div>
+                <p class="text-sm text-yellow-700">
+                    ⚠️ This is a clone version of Instagram, made for educational purposes only.
+                    Please do not use your actual login credentials.
+                </p>
+                <div class="p-3 mt-3 text-sm bg-yellow-100 border border-yellow-300 rounded-md">
+                    <p class="font-medium text-yellow-800">Use these demo credentials instead:</p>
+                    <p class="mt-1"><strong>Email:</strong> user2@gmail.com</p>
+                    <p><strong>Password:</strong> @user123</p>
+                </div>
+            </div>
+
+
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
@@ -60,6 +76,10 @@
                     </button>
                 </div>
 
+                <div class="flex justify-center p-3 mt-3 text-sm bg-yellow-100 border border-blue-300 rounded-md">
+                    <p class="font-medium text-yellow-800">Made by <span class="text-blue-500">przwl🎃</span> </p>
+                </div>
+
                 <div class="mt-6 text-center">
                     @if (Route::has('password.request'))
                         <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
@@ -84,6 +104,7 @@
                     <img src="https://static.cdninstagram.com/rsrc.php/v4/yz/r/c5Rp7Ym-Klz.png" alt="GET IT ON Google Play" class="h-10">
                 </a>
             </div>
+
         </footer>
     </div>
 </body>

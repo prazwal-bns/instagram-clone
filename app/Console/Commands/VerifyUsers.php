@@ -33,6 +33,6 @@ class VerifyUsers extends Command
             $user->update(['is_verified' => true]);
         }
 
-        $this->info('Users with more than 5 posts have been verified.');
+        $this->info('Users with more than 2 posts have been verified.');
     }
 }
