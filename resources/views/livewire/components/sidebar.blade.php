@@ -304,7 +304,7 @@
         </template>
 
         <div x-cloak x-show="showNotifications">
-            <livewire:components.notifications>
+            <livewire:components.notifications />
         </div>
 
 

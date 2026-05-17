@@ -29,7 +29,7 @@ class DemoSeeder extends Seeder
             [
                 'name' => 'Emma Wilson',
                 'username' => 'emma',
-                'email' => 'emma@demo.com',
+                'email' => 'emma@gmail.com',
                 'bio' => 'Travel & lifestyle photographer. Chasing golden hour.',
                 'gender' => 'female',
                 'is_verified' => true,
