@@ -41,7 +41,7 @@
         <div class="relative h-screen md:h-[900px] bg-black">
             @if($users->isNotEmpty() && $stories && $stories->isNotEmpty())
                 <div class="absolute top-0 left-0 right-0 z-10 flex items-center p-4 bg-gradient-to-b from-black to-transparent">
-                    <img src="{{ $users[$currentUserIndex]->photo }}" alt="{{ $users[$currentUserIndex]->name }}" class="w-10 h-10 mr-3 rounded-full">
+                    <img src="{{ $users[$currentUserIndex]->photo ? asset($users[$currentUserIndex]->photo) : '' }}" alt="{{ $users[$currentUserIndex]->name }}" class="w-10 h-10 mr-3 rounded-full">
                     <div class="text-white">
                         <p class="font-bold">{{ $users[$currentUserIndex]->name }}</p>
                         <p class="text-xs">{{ $stories[$currentStoryIndex]->created_at->diffForHumans() }}</p>

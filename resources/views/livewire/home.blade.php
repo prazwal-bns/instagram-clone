@@ -86,7 +86,7 @@
                                                     Your browser does not support the video tag.
                                                 </video>
                                             @else
-                                                <x-avatar :src="$story->user->photo" class="w-full h-full" />
+                                                <x-avatar :src="$story->user->photo ? asset($story->user->photo) : null" class="w-full h-full" />
                                             @endif
                                         </div>
                                     </div>

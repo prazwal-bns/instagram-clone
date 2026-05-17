@@ -18,7 +18,8 @@ class MediaFactory extends Factory
     public function definition(): array
     {
         $url = $this->getUrl('post');
-        $mime = $this->getMime('mime');
+        $mime = $this->getMime($url);
+
         return [
             'url' => $url,
             'mime' => $mime,
